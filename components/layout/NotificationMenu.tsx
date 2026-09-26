@@ -47,12 +47,12 @@ export function NotificationMenu({ notifications }: { notifications: AppNotifica
       {(close) => (
         <div>
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
-            <p className="text-[13.5px] font-semibold">Notifikasi</p>
+            <p className="text-[14px] font-semibold">Notifikasi</p>
             <button
               type="button"
               disabled={unread === 0}
               onClick={() => setReadIds(new Set(notifications.map((n) => n.id)))}
-              className="text-[12.5px] font-medium text-accent hover:underline disabled:text-subtle disabled:no-underline"
+              className="text-[13px] font-medium text-accent hover:underline disabled:text-subtle disabled:no-underline"
             >
               Tandai semua dibaca
             </button>
@@ -75,8 +75,8 @@ export function NotificationMenu({ notifications }: { notifications: AppNotifica
                       <p className={cn("text-[13px] leading-snug", isRead ? "text-ink-2" : "font-medium text-ink")}>
                         {n.title}
                       </p>
-                      <p className="mt-0.5 text-[12.5px] leading-snug text-muted">{n.description}</p>
-                      <p className="mt-1 text-[11.5px] text-subtle">{formatRelative(n.createdAt)}</p>
+                      <p className="mt-0.5 text-[13px] leading-snug text-muted">{n.description}</p>
+                      <p className="mt-1 text-[12px] text-subtle">{formatRelative(n.createdAt)}</p>
                     </div>
                     {!isRead ? <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" aria-label="Belum dibaca" /> : null}
                   </Link>

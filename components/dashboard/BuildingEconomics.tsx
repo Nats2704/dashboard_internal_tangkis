@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo } from "react";
 import { TrendingUp } from "lucide-react";
 import type { BuildingEconomicsRow } from "@/types/economics";
@@ -8,7 +7,6 @@ import { summarizeEconomics } from "@/lib/analytics/economics";
 import { formatPercent, formatRupiahShort, formatSignedPercent } from "@/lib/utils/format";
 import { Panel, SectionHeader } from "@/components/ui/Panel";
 import { Metric } from "@/components/ui/Metric";
-import { buttonClasses } from "@/components/ui/Button";
 import { useReferenceData } from "@/components/providers/ReferenceDataProvider";
 import { EconomicsChart } from "@/components/economics/EconomicsChart";
 import { EconomicsTable } from "@/components/economics/EconomicsTable";
@@ -50,10 +48,10 @@ export function EconomicsInsight({ rows }: { rows: BuildingEconomicsRow[] }) {
   const topShare = (top.reduce((s, r) => s + r.annualGap, 0) / Math.max(1, overs.reduce((s, r) => s + r.annualGap, 0))) * 100;
 
   return (
-    <div className="flex gap-3 rounded-md border border-danger/20 bg-danger-soft/50 px-4 py-3.5">
+    <div className="flex gap-2.5">
       <TrendingUp className="mt-0.5 size-4 shrink-0 text-danger" />
-      <div className="text-[13px] leading-relaxed text-ink-2">
-        <p className="font-medium text-ink">Jika biaya nyata melenceng, model bisnis perlu dievaluasi.</p>
+      <div className="max-w-[62ch] text-[13px] leading-relaxed text-ink-2">
+        <p className="text-[14px] font-medium text-ink">Jika biaya nyata melenceng, model bisnis perlu dievaluasi.</p>
         <p className="mt-1">
           Biaya layanan rata-rata {formatSignedPercent(summary.weightedVariancePct)} di atas asumsi.{" "}
           {top.length ? (
@@ -78,11 +76,8 @@ export function BuildingEconomics({ rows }: { rows: BuildingEconomicsRow[] }) {
         id="ekonomi-gedung-title"
         title="Ekonomi Nyata per Gedung"
         description="Biaya layanan aktual per unit per tahun dibanding asumsi di model Excel."
-        actions={
-          <Link href="/economics" className={buttonClasses("secondary", "sm")}>
-            Lihat semua
-          </Link>
-        }
+        href="/economics"
+        linkLabel="Lihat rincian ekonomi"
       />
       <EconomicsSummaryStrip rows={rows} />
       <div className="grid xl:grid-cols-[minmax(0,1fr)_440px]">
@@ -90,12 +85,10 @@ export function BuildingEconomics({ rows }: { rows: BuildingEconomicsRow[] }) {
           <EconomicsChart rows={rows} assumption={assumption} height={340} />
         </div>
         <div className="min-w-0">
-          <div className="px-5 pt-4 pb-3">
+          <div className="px-5 pt-5 pb-5">
             <EconomicsInsight rows={rows} />
           </div>
-          <p className="border-t border-line px-5 pt-3.5 pb-1 text-[12px] font-semibold tracking-[0.06em] text-muted uppercase">
-            Selisih terbesar
-          </p>
+          <h3 className="border-t border-line px-5 pt-4 pb-1 text-[13px] font-semibold text-ink">Selisih terbesar</h3>
           <EconomicsTable rows={topDeviations} />
         </div>
       </div>

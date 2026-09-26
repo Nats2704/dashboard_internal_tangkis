@@ -29,7 +29,7 @@ export function DetailList({
           <dt className="text-[12px] text-muted">{item.label}</dt>
           <dd
             className={cn(
-              "mt-0.5 text-[13.5px] text-ink",
+              "mt-0.5 text-[14px] text-ink",
               item.mono && "tabular font-mono text-[13px]"
             )}
           >

@@ -17,7 +17,7 @@ interface HeaderProps {
 function Clock() {
   const now = useNow();
   return (
-    <p className="tabular hidden text-right text-[12.5px] leading-tight text-muted lg:block" aria-live="off">
+    <p className="tabular hidden text-right text-[13px] leading-tight text-muted lg:block" aria-live="off">
       {now ? (
         <>
           <span className="block text-ink-2">{formatLongDate(now)}</span>

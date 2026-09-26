@@ -30,7 +30,7 @@ export function VendorsView({ requests }: { requests: VendorRequest[] }) {
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       <Panel labelledBy="rujukan-title">
         <SectionHeader
           id="rujukan-title"

@@ -40,17 +40,17 @@ export default async function DashboardPage() {
         description="Berikut ringkasan kondisi unit, sensor, dan operasional hari ini."
         meta={`Data per ${formatDateTime(DATA_SNAPSHOT_AT)}`}
       />
-      <div className="space-y-6">
-        <HeroSummary />
-        <FleetMapSection notifications={notifications} />
+      <div className="space-y-14">
+        <div className="space-y-10">
+          <HeroSummary />
+          <FleetMapSection notifications={notifications} />
+        </div>
         <DeviceOverview sensors={sensors} contracts={contracts} />
         <SensorHealth sensors={sensors} trend={trend} />
         <ContractOverview contracts={contracts} sensors={sensors} />
         <ServiceOverview />
-        <div className="grid gap-6 2xl:grid-cols-2 [&>*]:min-w-0">
-          <InventoryOverview records={inventory} flows={flows} />
-          <VendorOverview requests={vendorRequests} />
-        </div>
+        <InventoryOverview records={inventory} flows={flows} />
+        <VendorOverview requests={vendorRequests} />
         <BuildingEconomics rows={economics} />
       </div>
     </PageContainer>

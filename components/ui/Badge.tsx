@@ -48,7 +48,7 @@ export function Badge({ tone, children, variant = "dot", className }: BadgeProps
     return (
       <span
         className={cn(
-          "inline-flex items-center rounded px-1.5 py-0.5 text-[11.5px] font-medium whitespace-nowrap",
+          "inline-flex items-center rounded px-1.5 py-0.5 text-[12px] font-medium whitespace-nowrap",
           SOFT[tone],
           className
         )}

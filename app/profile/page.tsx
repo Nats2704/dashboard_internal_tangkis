@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Profil" };
 
 export default function ProfilePage() {
   return (
-    <PageContainer className="max-w-[1100px]">
+    <PageContainer narrow>
       <PageHeader title="Profil" />
       <Panel labelledBy="akun-title">
         <SectionHeader id="akun-title" title="Akun" description="Autentikasi belum aktif di prototipe ini." />

@@ -55,9 +55,9 @@ export function ToastProvider({ children }: { children: ReactNode }) {
               <Info className="mt-0.5 size-4 shrink-0 text-info" />
             )}
             <div className="min-w-0">
-              <p className="text-[13.5px] font-medium text-ink">{toast.title}</p>
+              <p className="text-[14px] font-medium text-ink">{toast.title}</p>
               {toast.description ? (
-                <p className="mt-0.5 text-[12.5px] text-muted">{toast.description}</p>
+                <p className="mt-0.5 text-[13px] text-muted">{toast.description}</p>
               ) : null}
             </div>
           </div>

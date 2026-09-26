@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo } from "react";
 import { useTickets } from "@/components/providers/TicketProvider";
 import { summarizeTickets } from "@/lib/analytics/tickets";
@@ -8,7 +7,6 @@ import { SERVICE_PERIOD_LABEL } from "@/lib/constants";
 import { formatRupiahShort } from "@/lib/utils/format";
 import { Panel, SectionHeader } from "@/components/ui/Panel";
 import { Metric } from "@/components/ui/Metric";
-import { buttonClasses } from "@/components/ui/Button";
 import { ServiceWorkspace } from "@/components/service/ServiceWorkspace";
 import { CostByCause } from "@/components/service/CostByCause";
 
@@ -49,11 +47,8 @@ export function ServiceOverview() {
         id="tiket-servis-title"
         title="Tiket Servis dan Kunjungan Lapangan"
         description={SERVICE_PERIOD_LABEL}
-        actions={
-          <Link href="/service" className={buttonClasses("secondary", "sm")}>
-            Lihat semua
-          </Link>
-        }
+        href="/service"
+        linkLabel="Lihat semua tiket"
       />
       <ServiceSummaryStrip />
       <div className="grid xl:grid-cols-[minmax(0,1fr)_320px]">

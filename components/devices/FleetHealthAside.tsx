@@ -37,7 +37,7 @@ export function FleetHealthAside({ devices, outdatedUpdatable, onUpdateFirmware,
               <div className="mb-1 flex items-baseline justify-between text-[13px]">
                 <span className={cn("tabular", f.version === LATEST_FIRMWARE ? "text-ink" : "text-warning")}>
                   {f.version}
-                  {f.version === LATEST_FIRMWARE ? <span className="ml-1.5 text-[11.5px] text-muted">terbaru</span> : null}
+                  {f.version === LATEST_FIRMWARE ? <span className="ml-1.5 text-[12px] text-muted">terbaru</span> : null}
                 </span>
                 <span className="tabular text-muted">{f.count} unit</span>
               </div>
@@ -46,8 +46,8 @@ export function FleetHealthAside({ devices, outdatedUpdatable, onUpdateFirmware,
           ))}
         </ul>
         {outdatedUpdatable > 0 ? (
-          <div className="mt-4 flex items-center justify-between gap-3 rounded-md bg-warning-soft/70 px-3 py-2.5">
-            <p className="text-[12.5px] leading-snug text-ink-2">
+          <div className="mt-4 flex items-center justify-between gap-3 border-t border-line pt-3.5">
+            <p className="text-[13px] leading-snug text-ink-2">
               <span className="font-semibold text-warning">{outdatedUpdatable} unit</span> menggunakan firmware lama
             </p>
             <Button size="sm" variant="secondary" onClick={onUpdateFirmware}>
@@ -55,7 +55,7 @@ export function FleetHealthAside({ devices, outdatedUpdatable, onUpdateFirmware,
             </Button>
           </div>
         ) : (
-          <p className="mt-4 text-[12.5px] text-success">Semua unit online sudah {LATEST_FIRMWARE}.</p>
+          <p className="mt-4 text-[13px] text-success">Semua unit online sudah {LATEST_FIRMWARE}.</p>
         )}
       </div>
 
@@ -63,7 +63,7 @@ export function FleetHealthAside({ devices, outdatedUpdatable, onUpdateFirmware,
         <SubHeading>Kekuatan sinyal</SubHeading>
         <ul className="space-y-2">
           {signal.map((bucket, i) => (
-            <li key={bucket.label} className="grid grid-cols-[88px_1fr_32px] items-center gap-3 text-[12.5px]">
+            <li key={bucket.label} className="grid grid-cols-[88px_1fr_32px] items-center gap-3 text-[13px]">
               <span className="text-ink-2">{bucket.label}</span>
               <Meter value={bucket.count} max={signalTotal} tone={i === 3 ? "danger" : "neutral"} label={bucket.label} />
               <span className="tabular text-right text-muted">{bucket.count}</span>
@@ -80,7 +80,7 @@ export function FleetHealthAside({ devices, outdatedUpdatable, onUpdateFirmware,
               <button
                 type="button"
                 onClick={() => onSelectDevice(d.id)}
-                className="w-full rounded text-left text-[12.5px] leading-snug hover:text-ink"
+                className="w-full rounded text-left text-[13px] leading-snug hover:text-ink"
               >
                 <span className="font-medium text-ink">{d.id}</span>
                 <span className="text-muted"> · {d.maintenanceNote}</span>

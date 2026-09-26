@@ -28,7 +28,7 @@ export function EconomicsView({ rows }: { rows: BuildingEconomicsRow[] }) {
   const changed = assumption !== COST_ASSUMPTION_PER_UNIT_YEAR;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       <Panel labelledBy="simulasi-title">
         <SectionHeader
           id="simulasi-title"
@@ -51,7 +51,7 @@ export function EconomicsView({ rows }: { rows: BuildingEconomicsRow[] }) {
             aria-valuetext={formatRupiahShort(assumption)}
           />
           <p className="shrink-0 text-[14px] font-semibold">
-            {formatRupiahShort(assumption)} <span className="text-[12.5px] font-normal text-muted">per unit per tahun</span>
+            {formatRupiahShort(assumption)} <span className="text-[13px] font-normal text-muted">per unit per tahun</span>
           </p>
           {changed ? (
             <Button size="sm" variant="ghost" onClick={() => setAssumption(COST_ASSUMPTION_PER_UNIT_YEAR)} className="md:ml-auto">
@@ -66,7 +66,7 @@ export function EconomicsView({ rows }: { rows: BuildingEconomicsRow[] }) {
           </div>
           <div className="px-5 py-5">
             <EconomicsInsight rows={simulated} />
-            <p className="mt-4 text-[12.5px] leading-relaxed text-muted">
+            <p className="mt-4 text-[13px] leading-relaxed text-muted">
               Komponen biaya: SIM data Rp 45 rb per bulan, kunjungan teknisi (transport dan jasa), suku cadang, serta sampling
               lab dua kali setahun. Geser asumsi untuk melihat titik impas model bisnis.
             </p>

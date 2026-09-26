@@ -78,7 +78,7 @@ export function AssignTechnicianModal({
       }
     >
       <fieldset>
-        <legend className="mb-2 text-[12.5px] font-medium text-ink-2">Teknisi</legend>
+        <legend className="mb-2 text-[13px] font-medium text-ink-2">Teknisi</legend>
         <div className="divide-y divide-line rounded-md border border-line">
           {technicians.map((tech) => {
             const checked = technicianId === tech.id;
@@ -99,7 +99,7 @@ export function AssignTechnicianModal({
                   className="size-4 accent-[#0e6f66]"
                 />
                 <span className="min-w-0 flex-1">
-                  <span className="flex items-center gap-2 text-[13.5px] font-medium text-ink">
+                  <span className="flex items-center gap-2 text-[14px] font-medium text-ink">
                     {tech.name}
                     {tech.id === recommended ? (
                       <span className="rounded bg-accent-soft px-1.5 text-[11px] font-medium text-accent">Area sesuai</span>
@@ -115,7 +115,7 @@ export function AssignTechnicianModal({
       </fieldset>
       {ticket.requiresVisit ? (
         <div className="mt-4">
-          <label htmlFor="visit-date" className="mb-1.5 block text-[12.5px] font-medium text-ink-2">
+          <label htmlFor="visit-date" className="mb-1.5 block text-[13px] font-medium text-ink-2">
             Tanggal kunjungan
           </label>
           <input
@@ -124,7 +124,7 @@ export function AssignTechnicianModal({
             value={visitDate}
             min={isoDay(0)}
             onChange={(e) => setVisitDate(e.target.value)}
-            className="h-9 w-full rounded-md border border-line-strong bg-surface px-3 text-[13.5px] focus:border-accent focus:outline-none"
+            className="h-9 w-full rounded-md border border-line-strong bg-surface px-3 text-[14px] focus:border-accent focus:outline-none"
           />
         </div>
       ) : null}

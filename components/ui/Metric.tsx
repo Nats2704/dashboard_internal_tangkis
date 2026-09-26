@@ -13,19 +13,20 @@ interface MetricProps {
   className?: string;
 }
 
+// lg hanya untuk angka utama di puncak halaman; section memakai md supaya hierarki jelas.
 const VALUE_SIZE = {
-  lg: "text-[28px] leading-8",
-  md: "text-[22px] leading-7",
-  sm: "text-lg leading-6",
+  lg: "text-[30px] leading-9",
+  md: "text-[20px] leading-7",
+  sm: "text-[17px] leading-6",
 };
 
 export function Metric({ label, value, unit, hint, tone, size = "md", className }: MetricProps) {
   return (
     <div className={cn("min-w-0", className)}>
-      <p className="text-[12.5px] text-muted">{label}</p>
+      <p className="text-[13px] text-muted">{label}</p>
       <p
         className={cn(
-          "mt-1 font-semibold tracking-tight",
+          "tabular mt-1 font-semibold tracking-[-0.02em]",
           VALUE_SIZE[size],
           tone && tone !== "neutral" ? TONE_TEXT[tone] : "text-ink"
         )}

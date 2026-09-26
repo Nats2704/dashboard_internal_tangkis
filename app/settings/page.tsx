@@ -21,9 +21,9 @@ export const metadata: Metadata = { title: "Pengaturan" };
 
 export default function SettingsPage() {
   return (
-    <PageContainer className="max-w-[1100px]">
+    <PageContainer narrow>
       <PageHeader title="Pengaturan" description="Ambang alarm dan asumsi yang dipakai di seluruh dashboard." />
-      <div className="space-y-6">
+      <div className="space-y-12">
         <Panel labelledBy="ambang-title">
           <SectionHeader id="ambang-title" title="Ambang alarm" description="Diubah lewat konfigurasi backend. Halaman ini hanya menampilkan nilai aktif." />
           <div className="px-5 py-5">
@@ -54,13 +54,13 @@ export default function SettingsPage() {
         </Panel>
         <Panel labelledBy="sumber-title">
           <SectionHeader id="sumber-title" title="Sumber data" />
-          <div className="px-5 py-5 text-[13.5px] text-ink-2">
+          <div className="px-5 py-5 text-[14px] text-ink-2">
             <p>
               Mode saat ini: <span className="font-semibold text-ink">{DATA_SOURCE === "mock" ? "Data contoh (mock)" : "API backend"}</span>
             </p>
             <p className="mt-1.5 text-muted">
-              Set <code className="rounded bg-black/[0.05] px-1 py-0.5 font-mono text-[12.5px]">TANGKIS_DATA_SOURCE=api</code> dan{" "}
-              <code className="rounded bg-black/[0.05] px-1 py-0.5 font-mono text-[12.5px]">TANGKIS_API_URL</code> untuk beralih ke backend.
+              Set <code className="rounded bg-black/[0.05] px-1 py-0.5 font-mono text-[13px]">TANGKIS_DATA_SOURCE=api</code> dan{" "}
+              <code className="rounded bg-black/[0.05] px-1 py-0.5 font-mono text-[13px]">TANGKIS_API_URL</code> untuk beralih ke backend.
             </p>
           </div>
         </Panel>

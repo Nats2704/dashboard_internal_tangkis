@@ -12,7 +12,7 @@ export function FleetMapSection({ notifications }: { notifications: AppNotificat
             id="sebaran-title"
             title="Sebaran Unit"
             description="Klik lingkaran untuk melihat kondisi unit di gedung tersebut."
-            className="border-b-0 pb-0"
+            flush
           />
           <UnitMapPanel className="flex flex-1 flex-col" />
         </div>

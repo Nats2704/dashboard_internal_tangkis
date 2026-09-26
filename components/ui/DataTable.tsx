@@ -114,7 +114,7 @@ export function DataTable<T>({
   return (
     <div className={cn("@container min-w-0", className)}>
       <div className="scrollbar-thin overflow-x-auto">
-        <table className={cn("w-full border-collapse text-left text-[13.5px]", !compact && "min-w-[520px]")}>
+        <table className={cn("w-full border-collapse text-left text-[13px]", !compact && "min-w-[520px]")}>
           <caption className="sr-only">{caption}</caption>
           <thead>
             <tr className="border-b border-line">
@@ -212,7 +212,7 @@ export function DataTable<T>({
         </table>
       </div>
       {pageSize && sorted.length > pageSize ? (
-        <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-2.5 text-[12.5px] text-muted">
+        <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-2.5 text-[13px] text-muted">
           <span className="tabular">
             {safePage * pageSize + 1}–{Math.min(sorted.length, (safePage + 1) * pageSize)} dari{" "}
             {sorted.length}

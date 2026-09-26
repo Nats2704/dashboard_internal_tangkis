@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { Sensor } from "@/types/sensor";
 import type { Contract } from "@/types/contract";
@@ -8,7 +7,6 @@ import { useFleet } from "@/components/providers/FleetProvider";
 import { summarizeFleet, connectivityRank } from "@/lib/analytics/devices";
 import { LOW_BATTERY_PCT, WEAK_SIGNAL_DBM } from "@/lib/constants";
 import { Panel, SectionHeader } from "@/components/ui/Panel";
-import { buttonClasses } from "@/components/ui/Button";
 import { Tabs } from "@/components/ui/Tabs";
 import { DeviceTable } from "@/components/devices/DeviceTable";
 import { FleetHealthAside } from "@/components/devices/FleetHealthAside";
@@ -50,11 +48,8 @@ export function DeviceOverview({ sensors, contracts }: { sensors: Sensor[]; cont
         id="kesehatan-alat-title"
         title="Kesehatan Alat"
         description={`Status koneksi, sinyal, baterai, dan firmware ${fleet.installed} unit terpasang.`}
-        actions={
-          <Link href="/devices" className={buttonClasses("secondary", "sm")}>
-            Lihat semua
-          </Link>
-        }
+        href="/devices"
+        linkLabel="Lihat semua unit"
       />
       <div className="grid xl:grid-cols-[minmax(0,1fr)_320px]">
         <div className="min-w-0 xl:border-r xl:border-line">

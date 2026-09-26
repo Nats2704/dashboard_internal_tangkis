@@ -1,10 +1,8 @@
-import Link from "next/link";
 import type { Sensor, SensorTrendPoint } from "@/types/sensor";
 import { summarizeSensors } from "@/lib/analytics/sensors";
 import { formatNumber, formatPercent } from "@/lib/utils/format";
 import { Panel, SectionHeader } from "@/components/ui/Panel";
 import { Metric } from "@/components/ui/Metric";
-import { buttonClasses } from "@/components/ui/Button";
 import { SensorTrendChart } from "@/components/sensors/SensorTrendChart";
 import { SensorWorkspace } from "@/components/sensors/SensorWorkspace";
 
@@ -65,11 +63,8 @@ export function SensorHealth({ sensors, trend }: { sensors: Sensor[]; trend: Sen
         id="kesehatan-sensor-title"
         title="Kesehatan Sensor"
         description="Level BBM, kadar air, dan suhu tangki dibandingkan dengan sampel lab terakhir."
-        actions={
-          <Link href="/sensors" className={buttonClasses("secondary", "sm")}>
-            Lihat semua
-          </Link>
-        }
+        href="/sensors"
+        linkLabel="Lihat semua sensor"
       />
       <SensorSummaryStrip sensors={sensors} />
       <div className="grid xl:grid-cols-[380px_minmax(0,1fr)]">

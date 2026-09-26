@@ -59,7 +59,7 @@ export function TicketDetailDrawer({ ticket, onClose, onAssign }: TicketDetailDr
     >
       <DrawerSection title="Masalah">
         <p className="text-[14px] leading-relaxed text-ink">{ticket.problem}</p>
-        <p className="mt-1 text-[12.5px] text-muted">Dilaporkan {formatDateTime(ticket.createdAt)}</p>
+        <p className="mt-1 text-[13px] text-muted">Dilaporkan {formatDateTime(ticket.createdAt)}</p>
       </DrawerSection>
       <DrawerSection title="Penanganan">
         <DetailList
@@ -83,7 +83,7 @@ export function TicketDetailDrawer({ ticket, onClose, onAssign }: TicketDetailDr
       </DrawerSection>
       <DrawerSection title="Biaya">
         {ticket.requiresVisit ? (
-          <dl className="text-[13.5px]">
+          <dl className="text-[14px]">
             {costRows.map(([label, value]) => (
               <div key={label} className="flex justify-between border-b border-line/70 py-2">
                 <dt className="text-muted">{label}</dt>

@@ -37,8 +37,8 @@ export function InventoryWorkspace({ records, flows, pageSize, initialStage = "r
     <div>
       <div className="px-5 pt-4 pb-4">
         <LifecycleStages byStage={summary.byStage} total={summary.total} selected={stage} onSelect={setStage} flows={flows} />
-        <div className="mt-4 flex gap-2.5 rounded-md bg-info-soft/70 px-3.5 py-2.5 text-[13px] leading-snug text-ink-2">
-          <Lightbulb className="mt-0.5 size-4 shrink-0 text-info" />
+        <div className="mt-5 flex max-w-[92ch] gap-2.5 text-[13px] leading-snug text-ink-2">
+          <Lightbulb className="mt-px size-4 shrink-0 text-info" />
           <p>
             Unit sewa yang ditarik dari pelanggan berhenti bisa dipasang ulang di gedung lain.{" "}
             <span className="text-muted">

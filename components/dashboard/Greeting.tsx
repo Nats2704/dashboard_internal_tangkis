@@ -9,7 +9,7 @@ export function Greeting() {
   const greeting = now ? greetingFor(now) : "Selamat pagi";
   return (
     <>
-      {greeting}, {CURRENT_USER.name} <span aria-hidden>👋</span>
+      {greeting}, {CURRENT_USER.name}
     </>
   );
 }

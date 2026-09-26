@@ -40,7 +40,7 @@ export function ContractsView({ contracts, sensors }: { contracts: Contract[]; s
   );
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       <Panel labelledBy="ringkasan-kontrak">
         <SectionHeader id="ringkasan-kontrak" title="Ringkasan kontrak" />
         <div className="grid grid-cols-2 lg:grid-cols-5 [&>*]:border-line [&>*]:px-5 [&>*]:py-4">

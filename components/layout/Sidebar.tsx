@@ -44,16 +44,13 @@ function NavLink({
       aria-current={active ? "page" : undefined}
       title={collapsed ? item.label : undefined}
       className={cn(
-        "group relative flex h-9 items-center gap-3 rounded-md px-2.5 text-[13.5px] transition-colors",
+        "group relative flex h-9 items-center gap-3 rounded-md px-2.5 text-[14px] transition-colors",
         active
           ? "bg-white/[0.09] font-medium text-white"
           : "text-white/65 hover:bg-white/[0.05] hover:text-white",
         collapsed && "justify-center px-0"
       )}
     >
-      {active ? (
-        <span className="absolute top-1.5 bottom-1.5 left-0 w-[3px] rounded-r bg-[#4fc2b1]" aria-hidden />
-      ) : null}
       <Icon className={cn("size-[17px] shrink-0", active ? "text-[#7fd6c8]" : "text-white/55 group-hover:text-white/80")} />
       {!collapsed ? <span className="truncate">{item.label}</span> : null}
       {!collapsed && count ? (
@@ -98,9 +95,7 @@ function SidebarContent({
 
       <nav aria-label="Navigasi utama" className="scrollbar-thin flex-1 overflow-y-auto px-3 pt-3">
         {!collapsed ? (
-          <p className="mb-2 px-2.5 text-[10.5px] font-semibold tracking-[0.12em] text-white/35 uppercase">
-            Operasional
-          </p>
+          <p className="mb-2 px-2.5 text-[12px] font-medium text-white/40">Operasional</p>
         ) : null}
         <ul className="space-y-0.5">
           {PRIMARY_NAV.map((item) => (
@@ -134,11 +129,8 @@ function SidebarContent({
 
       <div className={cn("border-t border-white/[0.07] px-3 py-3", collapsed && "px-2")}>
         {!collapsed ? (
-          <div className="mb-2 flex items-center gap-2 px-2.5 text-[11.5px] text-white/45">
-            <span className="relative flex size-1.5">
-              <span className="absolute inline-flex size-full animate-ping rounded-full bg-[#4fc2b1] opacity-60" />
-              <span className="relative inline-flex size-1.5 rounded-full bg-[#4fc2b1]" />
-            </span>
+          <div className="mb-2 flex items-center gap-2 px-2.5 text-[12px] text-white/45">
+            <span className="size-1.5 rounded-full bg-[#4fc2b1]" aria-hidden />
             Sinkron data {formatTime(DATA_SNAPSHOT_AT)} WIB
           </div>
         ) : null}

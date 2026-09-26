@@ -35,9 +35,9 @@ function ChartTooltip({ active, payload }: { active?: boolean; payload?: { paylo
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-lg border border-line bg-surface px-3 py-2.5 text-[12.5px] shadow-[0_8px_24px_rgb(10_29_25/0.12)]">
+    <div className="rounded-md border border-line-strong bg-surface px-3 py-2.5 text-[13px] shadow-[0_2px_8px_rgb(10_29_25/0.08)]">
       <p className="font-medium text-ink">{d.name}</p>
-      <p className="text-[11.5px] text-muted">
+      <p className="text-[12px] text-muted">
         {d.unitCount} unit · data {d.dataMonths} bulan
       </p>
       <dl className="mt-2 grid grid-cols-[auto_auto] gap-x-4 gap-y-0.5">
@@ -48,7 +48,7 @@ function ChartTooltip({ active, payload }: { active?: boolean; payload?: { paylo
         <dt className="text-muted">Selisih</dt>
         <dd className="tabular text-right font-medium">{formatSignedPercent(d.variancePct)}</dd>
       </dl>
-      <p className="mt-1.5 text-[11.5px] text-muted">{VARIANCE_LEVEL[d.level].label}</p>
+      <p className="mt-1.5 text-[12px] text-muted">{VARIANCE_LEVEL[d.level].label}</p>
     </div>
   );
 }
@@ -90,7 +90,7 @@ export function EconomicsChart({ rows, assumption, height = 280 }: { rows: Build
               tickFormatter={(v: number) => `${formatNumber(v / 1_000_000, 1)} jt`}
             />
             <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgb(20 33 29 / 0.04)" }} />
-            <Bar dataKey="actualPerUnit" radius={[4, 4, 0, 0]} isAnimationActive={false} maxBarSize={30}>
+            <Bar dataKey="actualPerUnit" radius={[2, 2, 0, 0]} isAnimationActive={false} maxBarSize={30}>
               {data.map((d) => (
                 <Cell key={d.buildingId} fill={LEVEL_FILL[d.level]} />
               ))}

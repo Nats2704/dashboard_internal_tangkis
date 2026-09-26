@@ -34,7 +34,8 @@ export function LifecycleStages({ byStage, total, selected, onSelect, flows }: L
 
   return (
     <div>
-      <div role="tablist" aria-label="Tahap siklus unit" className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-line bg-line md:grid-cols-4">
+      {/* Tahap siklus sebagai tab: garis atas menandai tahap yang tabelnya sedang tampil. */}
+      <div role="tablist" aria-label="Tahap siklus unit" className="grid grid-cols-2 gap-x-6 gap-y-5 md:grid-cols-4">
         {LIFECYCLE_ORDER.map((stage) => {
           const active = stage === selected;
           return (
@@ -45,27 +46,23 @@ export function LifecycleStages({ byStage, total, selected, onSelect, flows }: L
               aria-selected={active}
               onClick={() => onSelect(stage)}
               className={cn(
-                "relative bg-surface px-4 pt-3.5 pb-4 text-left transition-colors",
-                active ? "bg-accent-soft/50" : "hover:bg-sunken"
+                "group border-t-2 pt-3 text-left transition-colors",
+                active ? "border-accent" : "border-line hover:border-line-strong"
               )}
             >
-              {active ? <span className="absolute inset-x-0 top-0 h-0.5 bg-accent" aria-hidden /> : null}
-              <span className="block text-[12.5px] text-muted">{LIFECYCLE[stage].label}</span>
-              <span className="mt-1 block text-[24px] leading-7 font-semibold tracking-tight text-ink">{byStage[stage]}</span>
+              <span className={cn("flex items-center gap-1.5 text-[13px]", active ? "font-medium text-ink" : "text-muted group-hover:text-ink-2")}>
+                <span className={cn("size-2 rounded-sm", STAGE_BAR[stage])} aria-hidden />
+                {LIFECYCLE[stage].label}
+              </span>
+              <span className="tabular mt-1 block text-[20px] leading-7 font-semibold tracking-[-0.02em] text-ink">{byStage[stage]}</span>
               <span className="mt-0.5 block text-[12px] text-muted">
                 {formatPercent((byStage[stage] / Math.max(1, total)) * 100)} · {STAGE_HINT[stage]}
-              </span>
-              <span className="mt-3 block h-1 w-full rounded-full bg-black/[0.05]">
-                <span
-                  className={cn("block h-full rounded-full", STAGE_BAR[stage])}
-                  style={{ width: `${(byStage[stage] / Math.max(1, total)) * 100}%` }}
-                />
               </span>
             </button>
           );
         })}
       </div>
-      <dl className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[12.5px] md:grid-cols-4">
+      <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[13px] md:grid-cols-4">
         <div className="flex justify-between gap-2 md:block">
           <dt className="text-muted">Gudang → terpasang</dt>
           <dd className="tabular text-ink-2">{flowLabel("warehouse", "installed")} unit</dd>
@@ -83,7 +80,7 @@ export function LifecycleStages({ byStage, total, selected, onSelect, flows }: L
           <dd className="tabular text-ink-2">{flowLabel("installed", "returned")} unit</dd>
         </div>
       </dl>
-      <p className="mt-1.5 text-[11.5px] text-subtle">Perpindahan 90 hari terakhir.</p>
+      <p className="mt-1.5 text-[12px] text-subtle">Perpindahan 90 hari terakhir.</p>
     </div>
   );
 }

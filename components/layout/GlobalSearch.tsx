@@ -124,7 +124,7 @@ export function GlobalSearch({ entries }: { entries: SearchEntry[] }) {
         aria-controls={listId}
         aria-autocomplete="list"
         aria-activedescendant={showPanel && results[activeIndex] ? `${listId}-${activeIndex}` : undefined}
-        className="h-9 w-full rounded-md border border-line bg-sunken pr-12 pl-9 text-[13.5px] text-ink placeholder:text-subtle hover:border-line-strong focus:border-accent focus:bg-surface focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+        className="h-9 w-full rounded-md border border-line bg-sunken pr-12 pl-9 text-[14px] text-ink placeholder:text-subtle hover:border-line-strong focus:border-accent focus:bg-surface focus:outline-none [&::-webkit-search-cancel-button]:hidden"
       />
       <kbd className="pointer-events-none absolute top-1/2 right-2.5 hidden -translate-y-1/2 rounded border border-line bg-surface px-1.5 font-sans text-[11px] text-subtle sm:block">
         /
@@ -160,10 +160,10 @@ export function GlobalSearch({ entries }: { entries: SearchEntry[] }) {
                     <Icon className="mt-0.5 size-4 shrink-0 text-subtle" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[13.5px] font-medium text-ink">{entry.title}</span>
+                        <span className="text-[14px] font-medium text-ink">{entry.title}</span>
                         <span className="text-[11px] text-subtle">{KIND_LABEL[entry.kind]}</span>
                       </div>
-                      <p className="truncate text-[12.5px] text-muted">{entry.subtitle}</p>
+                      <p className="truncate text-[13px] text-muted">{entry.subtitle}</p>
                       {entry.status || entry.meta ? (
                         <p className="mt-0.5 flex items-center gap-2 text-[12px] text-muted">
                           {entry.status ? (

@@ -18,7 +18,7 @@ export function HeroSummary() {
   const onlinePct = (fleet.online / Math.max(1, fleet.installed)) * 100;
 
   return (
-    <section aria-label="Ringkasan armada" className="rounded-lg border border-line bg-surface">
+    <section aria-label="Ringkasan armada" className="-mx-5 border-t border-ink">
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
         <Metric
           size="lg"
@@ -58,8 +58,8 @@ export function HeroSummary() {
           hint={`Rata-rata · ${fleet.lowBattery} unit di bawah 40%`}
         />
         <div className="border-l border-line px-5 py-5">
-          <p className="text-[12.5px] text-muted">Firmware Terbaru</p>
-          <p className="mt-1 text-[28px] leading-8 font-semibold tracking-tight">{fleet.latestFirmware}</p>
+          <p className="text-[13px] text-muted">Firmware Terbaru</p>
+          <p className="tabular mt-1 text-[30px] leading-9 font-semibold tracking-[-0.02em]">{fleet.latestFirmware}</p>
           {fleet.outdatedUpdatable > 0 ? (
             <button
               type="button"

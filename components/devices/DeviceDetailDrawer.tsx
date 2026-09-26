@@ -72,7 +72,7 @@ export function DeviceDetailDrawer({ device, onClose, sensors, contract }: Devic
             {status.label}
           </Badge>
           {device.lastSeen ? (
-            <span className="text-[12.5px] text-muted">
+            <span className="text-[13px] text-muted">
               Data terakhir {formatRelative(device.lastSeen)}
             </span>
           ) : null}
@@ -120,7 +120,7 @@ export function DeviceDetailDrawer({ device, onClose, sensors, contract }: Devic
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="tabular text-[13.5px] font-medium text-ink">
+                  <p className="tabular text-[14px] font-medium text-ink">
                     {sensor.currentReading === null && sensor.lastReading !== null ? (
                       <span className="font-normal text-muted">terakhir {formatReading(sensor, sensor.lastReading)}</span>
                     ) : (
@@ -182,7 +182,7 @@ export function DeviceDetailDrawer({ device, onClose, sensors, contract }: Devic
                     <p className="text-[13px] font-medium text-ink">
                       {ticket.id} · {TICKET_CAUSE[ticket.cause]}
                     </p>
-                    <p className="truncate text-[12.5px] text-muted">{ticket.problem}</p>
+                    <p className="truncate text-[13px] text-muted">{ticket.problem}</p>
                   </div>
                   <div className="flex shrink-0 items-center gap-2">
                     <Badge tone={TICKET_STATUS[ticket.status].tone} className="text-[12px]">

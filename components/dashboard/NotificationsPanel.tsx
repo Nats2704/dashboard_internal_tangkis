@@ -16,21 +16,21 @@ export function NotificationsPanel({ notifications }: { notifications: AppNotifi
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex items-center justify-between px-5 pt-4 pb-3">
-        <h3 className="text-[13.5px] font-semibold">Perlu tindakan</h3>
-        <span className="text-[12px] text-muted">
+      <div className="flex items-baseline justify-between px-5 pt-4 pb-3">
+        <h3 className="font-heading text-[17px] leading-7 font-bold tracking-[-0.01em] text-ink">Perlu tindakan</h3>
+        <span className="tabular text-[12px] text-muted">
           {critical} kritis · {notifications.length} total
         </span>
       </div>
       <ul className="flex-1 border-t border-line">
         {sorted.map((n) => (
           <li key={n.id} className="border-b border-line/70 last:border-b-0">
-            <Link href={n.href} className="group flex gap-3 px-5 py-3 hover:bg-sunken">
+            <Link href={n.href} className="group flex gap-3 px-5 py-3.5 hover:bg-sunken">
               <StatusDot tone={TONE[n.severity]} className="mt-[7px]" />
               <div className="min-w-0 flex-1">
                 <p className="text-[13px] leading-snug font-medium text-ink">{n.title}</p>
-                <p className="mt-0.5 text-[12.5px] leading-snug text-muted">{n.description}</p>
-                <p className="mt-1 text-[11.5px] text-subtle">
+                <p className="mt-0.5 text-[13px] leading-snug text-muted">{n.description}</p>
+                <p className="mt-1 text-[12px] text-subtle">
                   {LABEL[n.severity]} · {formatRelative(n.createdAt)}
                 </p>
               </div>

@@ -19,7 +19,7 @@ export function ServiceView() {
   const status = params.get("status") as TicketFilter | null;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       <Panel labelledBy="ringkasan-servis">
         <SectionHeader id="ringkasan-servis" title="Ringkasan" description={SERVICE_PERIOD_LABEL} />
         <ServiceSummaryStrip />

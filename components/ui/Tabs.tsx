@@ -47,7 +47,7 @@ export function Tabs<V extends string>({
       className={cn(
         "scrollbar-thin flex max-w-full items-center overflow-x-auto",
         variant === "segmented"
-          ? "gap-0.5 rounded-md border border-line bg-sunken p-0.5"
+          ? "gap-0.5 rounded-md bg-sunken p-0.5"
           : "gap-5 border-b border-line",
         className
       )}
@@ -70,9 +70,9 @@ export function Tabs<V extends string>({
               "flex shrink-0 items-center gap-1.5 text-[13px] font-medium whitespace-nowrap transition-colors",
               variant === "segmented"
                 ? cn(
-                    "h-7 rounded px-2.5",
+                    "h-7 rounded-sm px-2.5",
                     selected
-                      ? "bg-surface text-ink shadow-[0_1px_2px_rgb(10_29_25/0.08)] ring-1 ring-line"
+                      ? "bg-surface text-ink ring-1 ring-line-strong/70"
                       : "text-muted hover:text-ink"
                   )
                 : cn(
@@ -85,7 +85,7 @@ export function Tabs<V extends string>({
             {item.count !== undefined ? (
               <span
                 className={cn(
-                  "tabular text-[11.5px]",
+                  "tabular text-[12px]",
                   selected ? "text-muted" : "text-subtle"
                 )}
               >

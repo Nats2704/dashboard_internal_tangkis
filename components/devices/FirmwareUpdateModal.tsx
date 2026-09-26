@@ -117,17 +117,17 @@ export function FirmwareUpdateModal({ open, onClose, onUpdated }: FirmwareUpdate
       <dl className="grid grid-cols-3 gap-4 rounded-md border border-line bg-sunken px-4 py-3">
         <div>
           <dt className="text-[12px] text-muted">Firmware saat ini</dt>
-          <dd className="tabular mt-0.5 text-[13.5px] font-medium">
+          <dd className="tabular mt-0.5 text-[14px] font-medium">
             {versions.length ? versions.map(([v, c]) => `${v} (${c})`).join(", ") : "—"}
           </dd>
         </div>
         <div>
           <dt className="text-[12px] text-muted">Firmware baru</dt>
-          <dd className="tabular mt-0.5 text-[13.5px] font-medium text-accent">{LATEST_FIRMWARE}</dd>
+          <dd className="tabular mt-0.5 text-[14px] font-medium text-accent">{LATEST_FIRMWARE}</dd>
         </div>
         <div>
           <dt className="text-[12px] text-muted">Target</dt>
-          <dd className="tabular mt-0.5 text-[13.5px] font-medium">{total} unit</dd>
+          <dd className="tabular mt-0.5 text-[14px] font-medium">{total} unit</dd>
         </div>
       </dl>
 
@@ -159,7 +159,7 @@ export function FirmwareUpdateModal({ open, onClose, onUpdated }: FirmwareUpdate
               </span>
               <span
                 className={cn(
-                  "tabular flex shrink-0 items-center gap-1.5 text-[12.5px]",
+                  "tabular flex shrink-0 items-center gap-1.5 text-[13px]",
                   done ? "text-success" : active ? "text-muted" : "text-subtle"
                 )}
               >
@@ -179,7 +179,7 @@ export function FirmwareUpdateModal({ open, onClose, onUpdated }: FirmwareUpdate
       </ul>
 
       {waiting.length > 0 ? (
-        <p className="mt-3 text-[12.5px] text-muted">
+        <p className="mt-3 text-[13px] text-muted">
           {waiting.length} unit lain juga masih firmware lama tetapi sedang offline (
           {waiting.map((d) => d.id).join(", ")}). Pembaruan otomatis dikirim saat unit kembali online.
         </p>

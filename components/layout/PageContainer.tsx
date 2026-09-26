@@ -1,9 +1,24 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils/cn";
 
-export function PageContainer({ children, className }: { children: ReactNode; className?: string }) {
+export function PageContainer({
+  children,
+  narrow = false,
+  className,
+}: {
+  children: ReactNode;
+  /** Lebar baca untuk halaman formulir seperti Pengaturan dan Profil. */
+  narrow?: boolean;
+  className?: string;
+}) {
   return (
-    <div className={cn("mx-auto w-full max-w-[1520px] px-4 pt-6 pb-16 sm:px-6 lg:px-8", className)}>
+    <div
+      className={cn(
+        "mx-auto w-full px-5 pt-8 pb-20 sm:px-6 lg:px-8",
+        narrow ? "max-w-[1100px]" : "max-w-[1520px]",
+        className
+      )}
+    >
       {children}
     </div>
   );
@@ -21,15 +36,19 @@ export function PageHeader({
   meta?: ReactNode;
 }) {
   return (
-    <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <div className="mb-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between md:gap-8">
       <div className="min-w-0">
-        {meta ? <div className="mb-1.5 text-[12.5px] text-muted">{meta}</div> : null}
-        <h1 className="text-[24px] leading-tight font-semibold tracking-tight text-ink sm:text-[26px]">
+        <h1 className="font-display text-[26px] leading-tight font-bold tracking-[-0.02em] text-ink sm:text-[30px]">
           {title}
         </h1>
-        {description ? <p className="mt-1.5 max-w-2xl text-[14px] text-muted">{description}</p> : null}
+        {description ? <p className="mt-2 max-w-2xl text-[14px] text-muted">{description}</p> : null}
       </div>
-      {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
+      {actions || meta ? (
+        <div className="flex flex-wrap items-center gap-3 md:justify-end">
+          {meta ? <p className="tabular text-[12px] text-muted">{meta}</p> : null}
+          {actions}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
 import { ShieldAlert } from "lucide-react";
 import type { Contract } from "@/types/contract";
@@ -10,7 +9,7 @@ import { WARRANTY_ALERT_DAYS } from "@/lib/constants";
 import { formatPercent } from "@/lib/utils/format";
 import { Panel, SectionHeader, SubHeading } from "@/components/ui/Panel";
 import { SegmentBar } from "@/components/ui/Meter";
-import { buttonClasses } from "@/components/ui/Button";
+import { Metric } from "@/components/ui/Metric";
 import { cn } from "@/lib/utils/cn";
 import { ContractWorkspace, type ContractFilter } from "@/components/contracts/ContractWorkspace";
 
@@ -31,29 +30,16 @@ export function ContractOverview({ contracts, sensors }: { contracts: Contract[]
         id="kontrak-title"
         title="Kontrak dan Kepemilikan"
         description={`${summary.total} unit dengan kontrak aktif (terpasang atau sedang diperbaiki).`}
-        actions={
-          <Link href="/contracts" className={buttonClasses("secondary", "sm")}>
-            Lihat semua
-          </Link>
-        }
+        href="/contracts"
+        linkLabel="Lihat semua kontrak"
       />
       <div className="grid xl:grid-cols-[300px_minmax(0,1fr)]">
         <div className="divide-y divide-line border-b border-line xl:border-r xl:border-b-0">
           <div className="px-5 py-4">
             <SubHeading>Kepemilikan unit</SubHeading>
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <p className="text-[12.5px] text-muted">Milik pelanggan</p>
-                <p className="mt-1 text-[22px] leading-7 font-semibold tracking-tight">
-                  {summary.owned} <span className="text-[13px] font-medium text-muted">unit</span>
-                </p>
-              </div>
-              <div>
-                <p className="text-[12.5px] text-muted">Sewa</p>
-                <p className="mt-1 text-[22px] leading-7 font-semibold tracking-tight">
-                  {summary.rental} <span className="text-[13px] font-medium text-muted">unit</span>
-                </p>
-              </div>
+              <Metric label="Milik pelanggan" value={summary.owned} unit="unit" />
+              <Metric label="Sewa" value={summary.rental} unit="unit" />
             </div>
             <SegmentBar
               className="mt-3"
@@ -73,28 +59,26 @@ export function ContractOverview({ contracts, sensors }: { contracts: Contract[]
               type="button"
               onClick={showExpiring}
               aria-pressed={filter === "expiring"}
-              className={cn(
-                "group w-full rounded-md border px-3.5 py-3 text-left transition-colors",
-                filter === "expiring"
-                  ? "border-warning/50 bg-warning-soft"
-                  : "border-warning/25 bg-warning-soft/50 hover:bg-warning-soft"
-              )}
+              className="group flex w-full items-start gap-2.5 text-left"
             >
-              <span className="flex items-start gap-2.5">
-                <ShieldAlert className="mt-0.5 size-4 shrink-0 text-warning" />
-                <span>
-                  <span className="block text-[13.5px] font-medium text-ink">Garansi hampir habis</span>
-                  <span className="mt-0.5 block text-[12.5px] text-ink-2">
-                    <span className="font-semibold text-warning">{summary.warrantyExpiring} unit</span> berakhir dalam{" "}
-                    {WARRANTY_ALERT_DAYS} hari
-                  </span>
-                  <span className="mt-1.5 block text-[12px] font-medium text-accent group-hover:underline">
-                    {filter === "expiring" ? "Tampilkan semua kontrak" : "Tampilkan unit terdampak"}
-                  </span>
+              <ShieldAlert className="mt-0.5 size-4 shrink-0 text-warning" />
+              <span>
+                <span className="block text-[14px] font-medium text-ink">Garansi hampir habis</span>
+                <span className="mt-0.5 block text-[13px] text-ink-2">
+                  <span className="font-semibold text-warning">{summary.warrantyExpiring} unit</span> berakhir dalam{" "}
+                  {WARRANTY_ALERT_DAYS} hari
+                </span>
+                <span
+                  className={cn(
+                    "mt-1.5 block text-[13px] font-medium text-accent underline-offset-4 group-hover:underline",
+                    filter === "expiring" && "underline"
+                  )}
+                >
+                  {filter === "expiring" ? "Tampilkan semua kontrak" : "Tampilkan unit terdampak"}
                 </span>
               </span>
             </button>
-            <dl className="mt-4 space-y-2 text-[12.5px]">
+            <dl className="mt-4 space-y-2 text-[13px]">
               <div className="flex justify-between">
                 <dt className="text-muted">Garansi sudah berakhir</dt>
                 <dd className="tabular text-ink-2">{summary.warrantyExpired} unit</dd>

@@ -18,7 +18,7 @@ import { formatNumber } from "@/lib/utils/format";
 
 type Metric = "deviation" | "normal";
 
-const AXIS = { fontSize: 11.5, fill: "#66726d" };
+const AXIS = { fontSize: 12, fill: "#66726d" };
 
 export function SensorTrendChart({ data }: { data: SensorTrendPoint[] }) {
   const [metric, setMetric] = useState<Metric>("deviation");
@@ -76,7 +76,7 @@ export function SensorTrendChart({ data }: { data: SensorTrendPoint[] }) {
             ) : null}
             <Tooltip
               cursor={{ stroke: "#cdd3cb", strokeWidth: 1 }}
-              contentStyle={{ borderRadius: 8, border: "1px solid #e3e6e0", fontSize: 12.5, boxShadow: "0 8px 24px rgb(10 29 25 / 0.1)" }}
+              contentStyle={{ borderRadius: 4, border: "1px solid #cdd3cb", fontSize: 13, boxShadow: "0 2px 8px rgb(10 29 25 / 0.08)" }}
               labelStyle={{ color: "#66726d", marginBottom: 2 }}
               formatter={(value) => [`${formatNumber(Number(value), metric === "deviation" ? 2 : 1)}%`, metric === "deviation" ? "Selisih rata-rata" : "Sensor normal"]}
               labelFormatter={(label) => `Minggu ${label}`}

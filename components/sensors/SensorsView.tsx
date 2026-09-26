@@ -17,7 +17,7 @@ export function SensorsView({ sensors, trend }: { sensors: Sensor[]; trend: Sens
   const status = params.get("status") as SensorFilter | null;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       <Panel labelledBy="ringkasan-sensor">
         <SectionHeader id="ringkasan-sensor" title="Ringkasan sensor" description="Tiga sensor per unit terpasang: level BBM, kadar air, dan suhu tangki." />
         <SensorSummaryStrip sensors={sensors} />

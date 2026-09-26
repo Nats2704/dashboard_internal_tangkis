@@ -38,7 +38,7 @@ export function ProfileMenu() {
           <Avatar />
           <span className="hidden text-left leading-tight xl:block">
             <span className="block text-[13px] font-medium text-ink">{CURRENT_USER.name}</span>
-            <span className="block text-[11.5px] text-muted">{CURRENT_USER.role}</span>
+            <span className="block text-[12px] text-muted">{CURRENT_USER.role}</span>
           </span>
           <ChevronDown className="hidden size-3.5 text-subtle xl:block" />
         </button>

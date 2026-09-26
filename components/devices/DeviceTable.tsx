@@ -87,7 +87,7 @@ export function DeviceTable({
         isOutdated(d) ? (
           <span className="tabular inline-flex items-center gap-1.5 text-warning">
             {d.firmware}
-            <span className="rounded bg-warning-soft px-1 text-[10.5px] font-medium">lama</span>
+            <span className="rounded bg-warning-soft px-1 text-[11px] font-medium">lama</span>
           </span>
         ) : (
           <span className="tabular">{d.firmware}</span>

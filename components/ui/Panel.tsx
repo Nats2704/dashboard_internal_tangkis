@@ -1,9 +1,12 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 
 /**
- * Satu permukaan per section. Sub-bagian di dalamnya dipisah garis, bukan
- * dibungkus kartu baru, supaya layout tidak terasa seperti tumpukan kartu.
+ * Satu section di halaman, bukan kartu: dibuka garis tegas lalu judul.
+ * Section melebar 20px ke kiri-kanan supaya teks di dalamnya (px-5) sejajar
+ * dengan judul halaman, sementara garis dan latar hover baris tabel mengisi penuh.
  */
 export function Panel({
   children,
@@ -22,7 +25,7 @@ export function Panel({
     <Tag
       id={id}
       aria-labelledby={labelledBy}
-      className={cn("scroll-mt-20 rounded-lg border border-line bg-surface", className)}
+      className={cn("-mx-5 scroll-mt-20 border-t border-ink", className)}
     >
       {children}
     </Tag>
@@ -31,51 +34,66 @@ export function Panel({
 
 export function SectionHeader({
   id,
-  eyebrow,
   title,
   description,
   actions,
+  href,
+  linkLabel = "Lihat semua",
+  flush = false,
   className,
 }: {
   id?: string;
-  eyebrow?: string;
   title: string;
   description?: ReactNode;
   actions?: ReactNode;
+  /** Tautan ke halaman lengkap section ini. */
+  href?: string;
+  linkLabel?: string;
+  /** Tanpa jarak bawah, untuk section yang langsung disambung toolbar sendiri. */
+  flush?: boolean;
   className?: string;
 }) {
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 border-b border-line px-5 py-4 sm:flex-row sm:items-end sm:justify-between",
+        "flex flex-col gap-2 px-5 pt-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6",
+        flush ? "pb-0" : "pb-4",
         className
       )}
     >
       <div className="min-w-0">
-        {eyebrow ? (
-          <p className="mb-1 text-[11px] font-semibold tracking-[0.08em] text-muted uppercase">
-            {eyebrow}
-          </p>
-        ) : null}
-        <h2 id={id} className="text-[15px] font-semibold tracking-tight text-ink">
+        <h2 id={id} className="font-heading text-[19px] leading-7 font-bold tracking-[-0.01em] text-ink">
           {title}
         </h2>
-        {description ? (
-          <p className="mt-0.5 text-[13px] text-muted">{description}</p>
-        ) : null}
+        {description ? <p className="mt-0.5 text-[13px] text-muted">{description}</p> : null}
       </div>
-      {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
+      {actions || href ? (
+        <div className="flex shrink-0 flex-wrap items-center gap-4">
+          {actions}
+          {href ? <SectionLink href={href}>{linkLabel}</SectionLink> : null}
+        </div>
+      ) : null}
     </div>
   );
 }
 
-/** Subjudul kecil untuk kelompok informasi di dalam panel. */
+export function SectionLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <Link
+      href={href}
+      className="group inline-flex items-center gap-1 text-[13px] font-medium whitespace-nowrap text-accent underline-offset-4 hover:text-accent-strong hover:underline"
+    >
+      {children}
+      <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+    </Link>
+  );
+}
+
+/** Subjudul kelompok informasi di dalam section. */
 export function SubHeading({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
-    <div className="mb-3 flex items-center justify-between gap-3">
-      <h3 className="text-[12px] font-semibold tracking-[0.06em] text-muted uppercase">
-        {children}
-      </h3>
+    <div className="mb-3 flex items-baseline justify-between gap-3">
+      <h3 className="text-[13px] font-semibold text-ink">{children}</h3>
       {action}
     </div>
   );

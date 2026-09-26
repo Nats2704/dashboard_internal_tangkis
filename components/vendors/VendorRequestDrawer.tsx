@@ -38,7 +38,7 @@ export function VendorRequestDrawer({ request, onClose }: { request: VendorReque
       }
     >
       <DrawerSection title="Alasan rujukan">
-        <p className="text-[13.5px] leading-relaxed text-ink">{request.note}</p>
+        <p className="text-[14px] leading-relaxed text-ink">{request.note}</p>
       </DrawerSection>
       <DrawerSection title="Progres">
         <ol className="flex items-start">
