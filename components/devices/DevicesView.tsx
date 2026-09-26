@@ -74,7 +74,7 @@ export function DevicesView({ sensors, contracts }: { sensors: Sensor[]; contrac
   const filtersKey = `${status}-${building}-${firmware}-${query}`;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-12">
       <Panel labelledBy="daftar-unit-title">
         <SectionHeader
           id="daftar-unit-title"

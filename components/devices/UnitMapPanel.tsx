@@ -6,6 +6,7 @@ import type { ConnectivityStatus } from "@/types/device";
 import { useFleet } from "@/components/providers/FleetProvider";
 import { useReferenceData } from "@/components/providers/ReferenceDataProvider";
 import { Tabs } from "@/components/ui/Tabs";
+import { cn } from "@/lib/utils/cn";
 import { MARKER_COLOR, REGIONS, type MapFilter, type RegionKey, type SiteMarker } from "./map-types";
 
 const UnitMap = dynamic(() => import("./UnitMap"), {
@@ -52,7 +53,11 @@ export function UnitMapPanel({ className }: { className?: string }) {
   );
 
   return (
-    <div className={className}>
+    // flex flex-col wajib: div peta di bawah pakai min-h+flex-1, yang cuma
+    // jadi tinggi pasti (dibutuhkan elemen h-full Leaflet) kalau parent-nya
+    // flex column. Dibakukan di sini (bukan diserahkan ke tiap pemanggil)
+    // supaya bug "peta tinggi 0px" ini tidak terulang di halaman lain.
+    <div className={cn("flex flex-col", className)}>
       <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-4 pb-3">
         <Tabs
           label="Filter status di peta"
@@ -73,7 +78,8 @@ export function UnitMapPanel({ className }: { className?: string }) {
           items={(Object.keys(REGIONS) as RegionKey[]).map((key) => ({ value: key, label: REGIONS[key].label }))}
         />
       </div>
-      <div className="relative isolate z-0 h-[340px] flex-1 border-y border-line sm:min-h-[380px]">
+      {/* min-h wajib: di kolom ber-tinggi auto, flex-1 saja membuat peta menyusut ke 0 di layar sempit. */}
+      <div className="relative isolate z-0 min-h-[320px] flex-1 border-y border-line sm:min-h-[380px]">
         <UnitMap sites={visible} filter={filter} region={region} />
       </div>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-1 px-5 py-3 text-[12px] text-muted">
