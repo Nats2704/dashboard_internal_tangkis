@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TANGKIS · Frontend Dashboard
 
-## Getting Started
+Frontend dashboard operasional TANGKIS: kesehatan unit, sensor, kontrak, tiket servis, stok, rujukan vendor, dan ekonomi per gedung. Semua data masih mock, tetapi alurnya sudah disiapkan supaya bisa diganti API tanpa membongkar komponen.
 
-First, run the development server:
+## Menjalankan
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000 (otomatis diarahkan ke /dashboard)
+npm run build    # build produksi
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Butuh Node.js 20.9 atau lebih baru. Font Geist dibundel lewat paket `geist`, jadi build tidak perlu mengunduh font dari Google. Peta memakai Leaflet dengan tile CARTO (tanpa API key). Kalau tile tidak bisa dimuat, marker unit tetap tampil dan muncul catatan kecil di peta.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Next.js 16 (App Router), React 19, TypeScript strict, Tailwind CSS 4, Recharts, Leaflet + react-leaflet, Lucide. State memakai React state dan Context, tanpa library state tambahan.
 
-## Learn More
+## Alur data
 
-To learn more about Next.js, take a look at the following resources:
+```
+lib/mock-data/*        data contoh deterministik (seed tetap)
+      ↓
+lib/services/*         satu-satunya pintu ambil data (async)
+      ↓
+app/**/page.tsx        server component, memanggil service
+      ↓
+components/**          UI, hanya menerima props / context
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Semua service memakai `load()` di `lib/services/source.ts`. Untuk pindah ke backend, isi `.env.local`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+TANGKIS_DATA_SOURCE=api
+TANGKIS_API_URL=https://api.tangkis.id/v1
+```
 
-## Deploy on Vercel
+Endpoint yang diharapkan tertulis di tiap file service (misalnya `/devices`, `/sensors/trend?weeks=12`, `/tickets?period=2026-Q3`). Bentuk JSON-nya mengikuti tipe di folder `types/`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Aksi tulis (assign teknisi, update firmware) ada di `lib/services/mutations.ts` dan saat ini disimulasikan dengan timeout. Ganti isinya dengan POST/PATCH, komponen pemanggil tidak perlu diubah.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Angka ringkasan (total unit, online, sensor normal, garansi hampir habis, dan seterusnya) tidak diketik manual. Semuanya dihitung dari data oleh fungsi murni di `lib/analytics/`, sehingga dashboard tetap konsisten ketika data berubah.
+
+## Struktur folder
+
+```
+app/                    route: dashboard, devices, sensors, contracts, service,
+                        inventory, vendors, economics, settings, profile
+components/
+  layout/               AppShell, Sidebar, Header, GlobalSearch, menu notifikasi & profil
+  dashboard/            section Beranda (HeroSummary, DeviceOverview, SensorHealth, ...)
+  devices/ sensors/ contracts/ service/ inventory/ vendors/ economics/
+                        tabel, drawer, modal, dan "workspace" per domain
+                        (dipakai ulang oleh dashboard dan halaman detail)
+  providers/            FleetProvider, TicketProvider, ReferenceDataProvider
+  ui/                   Button, Badge, Panel, Metric, Tabs, DataTable, Drawer, Modal,
+                        Dropdown, Toast, SearchInput
+lib/
+  mock-data/            generator data contoh
+  services/             lapisan akses data
+  analytics/            perhitungan ringkasan (pure function)
+  constants/            ambang alarm, label status, navigasi
+  hooks/  utils/
+types/                  tipe domain
+```
+
+## Catatan data contoh
+
+Snapshot data dikunci pada 26 Sep 2026 pukul 08.00 WIB (`DATA_SNAPSHOT_AT`) supaya render server dan browser identik. Jam di header tetap waktu nyata.
+
+Beberapa angka sengaja berbeda dari brief awal karena brief-nya saling bertabrakan:
+
+- Unit online dan offline hanya dihitung dari 356 unit terpasang. Brief menulis online 432 + offline 36 = 468, padahal 78 unit masih di gudang.
+- Kontrak hanya untuk unit terpasang dan yang sedang diperbaiki (378 unit), bukan seluruh 468.
+- "Perlu kalibrasi" dihitung satu kali: 24 sensor yang tersebar di 23 unit.
+- Firmware rilis terbaru v2.4.1, jadi pembaruan menargetkan 18 unit online yang masih v2.3.x. Satu unit lama lain (GM-014) sedang offline dan menunggu.
+- Asumsi ekonomi dibaca sebagai Rp 1,9 jt per unit per tahun. Membandingkan biaya per gedung dengan satu angka tetap tidak adil karena jumlah unit tiap gedung berbeda (6 sampai 52 unit).
