@@ -37,7 +37,7 @@ function ChartTooltip({ active, payload }: { active?: boolean; payload?: { paylo
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-md border border-line-strong bg-elevated px-3 py-2.5 text-[12.5px] shadow-[0_12px_32px_rgb(0_0_0/0.45)]">
+    <div className="rounded-md border border-line-strong bg-elevated px-3 py-2.5 text-[12.5px] shadow-[0_12px_32px_var(--color-shadow)]">
       <p className="font-medium text-ink">{d.name}</p>
       <p className="text-[12px] text-muted">
         {d.unitCount} unit · data {d.dataMonths} bulan
@@ -92,7 +92,7 @@ export function EconomicsChart({ rows, assumption, height = 280 }: { rows: Build
               ticks={ticks}
               tickFormatter={(v: number) => `${formatNumber(v / 1_000_000, 1)} jt`}
             />
-            <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgb(255 255 255 / 0.04)" }} />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: "var(--color-hover)" }} />
             <Bar
               dataKey="actualPerUnit"
               radius={[3, 3, 0, 0]}

@@ -48,7 +48,7 @@ function NavLink({
       aria-label={collapsed ? item.label : undefined}
       className={cn(
         "group relative flex h-9 items-center gap-3 rounded-md px-3 text-[13.5px] transition-colors duration-150",
-        active ? "bg-white/[0.055] font-medium text-ink" : "text-muted hover:bg-white/[0.035] hover:text-ink-2",
+        active ? "bg-fill font-medium text-ink" : "text-muted hover:bg-hover hover:text-ink-2",
         collapsed && "justify-center px-0"
       )}
     >
@@ -72,7 +72,7 @@ function NavLink({
         <span
           className={cn(
             "tabular ml-auto rounded px-1.5 text-[11px] leading-[18px] font-medium",
-            count.critical ? "bg-danger-soft text-danger" : "bg-white/[0.06] text-muted"
+            count.critical ? "bg-danger-soft text-danger" : "bg-fill text-muted"
           )}
         >
           {count.value}
@@ -87,7 +87,7 @@ function NavLink({
       {collapsed ? (
         <span
           role="tooltip"
-          className="pointer-events-none absolute left-full z-50 ml-3 rounded-md border border-line-strong bg-elevated px-2.5 py-1.5 text-[12px] font-medium whitespace-nowrap text-ink opacity-0 shadow-[0_8px_24px_rgb(0_0_0/0.4)] transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+          className="pointer-events-none absolute left-full z-50 ml-3 rounded-md border border-line-strong bg-elevated px-2.5 py-1.5 text-[12px] font-medium whitespace-nowrap text-ink opacity-0 shadow-[0_8px_24px_var(--color-shadow)] transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
         >
           {item.label}
           {count && count.value > 0 ? <span className="ml-1.5 text-muted">{count.value}</span> : null}
@@ -187,7 +187,7 @@ function SidebarContent({
             type="button"
             onClick={onToggleCollapse}
             className={cn(
-              "flex h-9 w-full items-center gap-3 rounded-md px-3 text-[13px] text-subtle transition-colors hover:bg-white/[0.035] hover:text-ink-2",
+              "flex h-9 w-full items-center gap-3 rounded-md px-3 text-[13px] text-subtle transition-colors hover:bg-hover hover:text-ink-2",
               collapsed && "justify-center px-0"
             )}
             aria-label={collapsed ? "Perluas sidebar" : "Ciutkan sidebar"}

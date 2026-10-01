@@ -47,7 +47,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className="animate-pop-in pointer-events-auto flex gap-3 rounded-lg border border-line-strong bg-elevated px-4 py-3 shadow-[0_20px_48px_rgb(0_0_0/0.5)]"
+            className="animate-pop-in pointer-events-auto flex gap-3 rounded-lg border border-line-strong bg-elevated px-4 py-3 shadow-[0_20px_48px_var(--color-shadow)]"
           >
             {toast.tone === "success" ? (
               <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-success" />

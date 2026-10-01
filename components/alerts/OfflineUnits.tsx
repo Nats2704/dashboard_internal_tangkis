@@ -31,7 +31,7 @@ export function OfflineUnits({ minHours = 24, limit = 6 }: { minHours?: number; 
           >
             <span className="font-mono text-[12px] text-ink">{device.id}</span>
             <span className="truncate text-[12px] text-muted">{buildingById.get(device.buildingId ?? "")?.name}</span>
-            <span className="h-1 overflow-hidden rounded-full bg-white/[0.06]" aria-hidden>
+            <span className="h-1 overflow-hidden rounded-full bg-fill" aria-hidden>
               <span className="block h-full rounded-full bg-danger/80" style={{ width: `${(hours / max) * 100}%` }} />
             </span>
             <span className="tabular text-right text-[12px] text-danger">{formatNumber(hours, 0)} jam</span>

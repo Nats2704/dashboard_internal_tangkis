@@ -7,6 +7,7 @@ import { getDevices } from "@/lib/services/deviceService";
 import { getTechnicians, getTickets } from "@/lib/services/ticketService";
 import { getVendors } from "@/lib/services/vendorService";
 import { getNotifications, getSearchIndex } from "@/lib/services/notificationService";
+import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import "./globals.css";
 
 // Geist Sans untuk seluruh teks, Geist Mono untuk kode unit, ID, dan firmware.
@@ -22,8 +23,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#090e15",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#090e15" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f5f8" },
+  ],
+  colorScheme: "dark light",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
@@ -40,7 +44,19 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     ]);
 
   return (
-    <html lang="id" className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
+    // data-theme diganti oleh THEME_INIT_SCRIPT sebelum hydrate, jadi selisihnya disengaja.
+    <html
+      lang="id"
+      data-theme="dark"
+      className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        {/* Script biasa, bukan next/script: beforeInteractive versi inline baru
+            dijalankan setelah runtime Next termuat, jadi tema terang sempat
+            berkedip gelap. Ini harus jalan sinkron sebelum paint. */}
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+      </head>
       <body>
         <AppShell
           reference={{ buildings, customers, technicians, vendors }}

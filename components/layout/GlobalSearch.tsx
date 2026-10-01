@@ -131,7 +131,7 @@ export function GlobalSearch({ entries }: { entries: SearchEntry[] }) {
       </kbd>
 
       {showPanel ? (
-        <div className="animate-pop-in absolute top-full right-0 left-0 z-40 mt-2 overflow-hidden rounded-lg border border-line-strong bg-elevated shadow-[0_20px_48px_rgb(0_0_0/0.5)]">
+        <div className="animate-pop-in absolute top-full right-0 left-0 z-40 mt-2 overflow-hidden rounded-lg border border-line-strong bg-elevated shadow-[0_20px_48px_var(--color-shadow)]">
           {results.length === 0 ? (
             <p className="px-4 py-6 text-center text-[13px] text-muted">
               Tidak ada unit, gedung, atau tiket yang cocok dengan “{query.trim()}”.

@@ -23,7 +23,7 @@ const SOFT: Record<Tone, string> = {
   warning: "bg-warning-soft text-warning ring-warning/20",
   danger: "bg-danger-soft text-danger ring-danger/25",
   info: "bg-info-soft text-info ring-info/20",
-  neutral: "bg-white/[0.05] text-ink-2 ring-white/10",
+  neutral: "bg-fill text-ink-2 ring-line-strong",
 };
 
 const STROKE: Record<Tone, string> = {

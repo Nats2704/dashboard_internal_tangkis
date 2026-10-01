@@ -11,6 +11,7 @@ import { GlobalSearch } from "./GlobalSearch";
 import { NotificationMenu } from "./NotificationMenu";
 import { ProfileMenu } from "./ProfileMenu";
 import { SystemStatus } from "./SystemStatus";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface HeaderProps {
   onOpenMenu: () => void;
@@ -77,6 +78,7 @@ export function Header({ onOpenMenu, searchEntries, notifications }: HeaderProps
           </div>
           <Clock />
           <div className="hidden h-7 w-px bg-line sm:block" aria-hidden />
+          <ThemeToggle />
           <NotificationMenu notifications={notifications} />
           <ProfileMenu />
         </div>

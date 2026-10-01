@@ -10,7 +10,7 @@ Ukuran dan posisi panel mengikuti urutan itu. Tidak semua informasi mendapat bob
 
 ## Warna
 
-Satu tema gelap. Token ada di `app/globals.css` (`@theme`). Komponen hanya memakai token, tidak memakai hex langsung. Pengecualian: library yang menerima warna lewat props (Recharts, Leaflet) memakai konstanta di `lib/constants/chart.ts`.
+Dua mode: gelap (bawaan) dan terang. Token ada di `app/globals.css`: nilai gelap di `@theme`, nilai terang menimpa token yang sama di `:root[data-theme="light"]`. Tema dipasang oleh script inline di `<head>` (`lib/theme.ts`) sebelum paint, lalu diubah lewat tombol di header (`useTheme`, disimpan di localStorage). Komponen hanya memakai token, tidak memakai hex atau `bg-white/[..]` langsung; overlay netral memakai `hover`, `fill`, `fill-strong`, bayangan memakai `var(--color-shadow)`. Library yang menerima warna lewat props (Recharts, Leaflet) memakai `lib/constants/chart.ts`, yang berisi referensi `var(--color-*)` sehingga ikut berganti mode. Penyesuaian yang tidak bisa diwakili token memakai varian `light:`.
 
 | Lapisan   | Token      | Pakai untuk                         |
 | --------- | ---------- | ----------------------------------- |

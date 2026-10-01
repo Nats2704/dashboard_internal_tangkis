@@ -72,7 +72,7 @@ export function Tabs<V extends string>({
                 ? cn(
                     "h-7 rounded px-2.5",
                     selected
-                      ? "bg-elevated text-ink shadow-[0_1px_2px_rgb(0_0_0/0.4)] ring-1 ring-line-strong"
+                      ? "bg-elevated text-ink shadow-[0_1px_2px_var(--color-shadow)] ring-1 ring-line-strong"
                       : "text-muted hover:bg-hover hover:text-ink-2"
                   )
                 : cn(

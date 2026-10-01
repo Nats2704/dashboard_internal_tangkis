@@ -1,23 +1,25 @@
 /**
  * Warna untuk library yang menerima warna lewat props (Recharts, Leaflet).
- * Nilainya sama dengan token di app/globals.css; ubah keduanya bersamaan.
+ * Berupa referensi token CSS, bukan hex, supaya ikut berganti saat mode
+ * gelap/terang diubah. Hanya aman dipakai di atribut SVG atau inline style;
+ * jangan digabung dengan sufiks alpha (mis. `${CHART.accent}33`).
  */
 export const CHART = {
-  grid: "#1e2731",
-  axisLine: "#2b3643",
-  axisText: "#66727f",
-  label: "#8794a4",
-  ink: "#e8edf3",
-  surface: "#111820",
-  elevated: "#172029",
-  accent: "#35c4ad",
-  success: "#3fbf7f",
-  warning: "#e9a23b",
-  danger: "#f0604f",
-  info: "#62a0f0",
-  neutral: "#66727f",
+  grid: "var(--color-line)",
+  axisLine: "var(--color-line-strong)",
+  axisText: "var(--color-subtle)",
+  label: "var(--color-muted)",
+  ink: "var(--color-ink)",
+  surface: "var(--color-surface)",
+  elevated: "var(--color-elevated)",
+  accent: "var(--color-accent)",
+  success: "var(--color-success)",
+  warning: "var(--color-warning)",
+  danger: "var(--color-danger)",
+  info: "var(--color-info)",
+  neutral: "var(--color-subtle)",
   /** Batang netral yang tetap terbaca di atas surface. */
-  neutralBar: "#4f5d6c",
+  neutralBar: "var(--color-neutral-bar)",
 } as const;
 
 export const CHART_AXIS_TICK = { fontSize: 11, fill: CHART.axisText };
@@ -30,7 +32,7 @@ export const CHART_TOOLTIP = {
     borderRadius: 6,
     fontSize: 12.5,
     color: CHART.ink,
-    boxShadow: "0 12px 32px rgb(0 0 0 / 0.45)",
+    boxShadow: "0 12px 32px var(--color-shadow)",
     padding: "8px 10px",
   },
   labelStyle: { color: CHART.label, marginBottom: 2 },

@@ -26,7 +26,7 @@ export function Panel({
       id={id}
       aria-labelledby={labelledBy}
       className={cn(
-        "scroll-mt-20 overflow-hidden rounded-xl border border-line bg-surface shadow-[inset_0_1px_0_rgb(255_255_255/0.025)]",
+        "scroll-mt-20 overflow-hidden rounded-xl border border-line bg-surface shadow-[inset_0_1px_0_var(--color-highlight)]",
         className
       )}
     >

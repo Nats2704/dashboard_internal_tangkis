@@ -2,10 +2,15 @@
 
 /*
  * Design system TANGKIS · mission control untuk infrastruktur daya kritis.
- * Satu tema gelap dengan tiga lapis nada: canvas (latar), surface (panel),
- * elevated (popover, drawer, modal). Warna status hanya dipakai untuk status.
+ * Dua mode (gelap bawaan, terang lewat data-theme="light" di <html>) dengan
+ * tiga lapis nada: canvas (latar), surface (panel), elevated (popover, drawer,
+ * modal). Warna status hanya dipakai untuk status.
  * Keputusan lengkap: design-system/tangkis/MASTER.md.
  */
+
+/* Varian `light:` untuk penyesuaian yang tidak bisa diwakili token (mis. filter gambar). */
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
 @theme {
   /* Lapisan nada, dari paling dalam ke paling atas. */
   --color-canvas: #090e15;
@@ -17,6 +22,14 @@
   --color-line-strong: #2b3643;
   --color-hover: #ffffff0a;
   --color-overlay: #03060ab8;
+  /* Isian netral: trek meter, chip netral, tombol sekunder. */
+  --color-fill: #ffffff0f;
+  --color-fill-strong: #ffffff17;
+  /* Kilau 1px di tepi atas panel. */
+  --color-highlight: #ffffff06;
+  /* Bayangan lapisan melayang dan cahaya aksen. */
+  --color-shadow: #00000080;
+  --color-accent-glow: #35c4ad73;
 
   --color-ink: #e8edf3;
   --color-ink-2: #b7c1cd;
@@ -45,6 +58,9 @@
   --color-info: #62a0f0;
   --color-info-soft: #62a0f01f;
 
+  /* Batang grafik netral yang tetap terbaca di atas surface. */
+  --color-neutral-bar: #4f5d6c;
+
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
@@ -68,8 +84,6 @@
   --animate-rise: rise 520ms var(--ease-out-soft) backwards;
   --animate-pulse-ring: pulse-ring 2.2s cubic-bezier(0.2, 0.6, 0.4, 1) infinite;
   --animate-dash-flow: dash-flow 1.6s linear infinite;
-  --animate-wave: wave 9s linear infinite;
-  --animate-wave-slow: wave 14s linear infinite;
   --animate-badge-pop: badge-pop 360ms var(--ease-out-soft);
   --animate-blink: blink 1.6s ease-in-out infinite;
 
@@ -146,14 +160,6 @@
       stroke-dashoffset: -16;
     }
   }
-  @keyframes wave {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
   @keyframes badge-pop {
     0% {
       transform: scale(0.6);
@@ -174,6 +180,56 @@
       opacity: 0.35;
     }
   }
+}
+
+/*
+ * Mode terang: token yang sama, nilai berbeda. Latar abu-abu kebiruan pucat,
+ * panel putih, dan warna status/aksen digelapkan supaya kontras teks di atas
+ * putih tetap >= 4.5:1.
+ */
+:root[data-theme="light"] {
+  --color-canvas: #f3f5f8;
+  --color-sunken: #eceff3;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f7f9fb;
+  --color-elevated: #ffffff;
+  --color-line: #e1e6ec;
+  --color-line-strong: #cbd3dc;
+  --color-hover: #0f182409;
+  --color-overlay: #0f182466;
+  --color-fill: #0f18240d;
+  --color-fill-strong: #0f182414;
+  --color-highlight: #ffffff00;
+  --color-shadow: #0f182424;
+  --color-accent-glow: #1a7f7340;
+
+  --color-ink: #0f1823;
+  --color-ink-2: #344150;
+  --color-muted: #586574;
+  --color-subtle: #626e7b;
+
+  --color-brand-950: #e7ebf0;
+  --color-brand-900: #fbfcfd;
+  --color-brand-800: #dfe7ef;
+  --color-brand-700: #cfdae5;
+
+  /* Teal ikon TANGKIS (#1f8a7d) sedikit digelapkan untuk teks di atas putih. */
+  --color-accent: #1a7f73;
+  --color-accent-strong: #136a60;
+  --color-accent-soft: #1a7f7314;
+  --color-accent-line: #1a7f7355;
+  --color-on-accent: #ffffff;
+
+  --color-success: #187d4c;
+  --color-success-soft: #187d4c1a;
+  --color-warning: #96600c;
+  --color-warning-soft: #c47f1a1f;
+  --color-danger: #cf3b2a;
+  --color-danger-soft: #cf3b2a17;
+  --color-info: #2b67c4;
+  --color-info-soft: #2b67c417;
+
+  --color-neutral-bar: #9aa6b3;
 }
 
 @layer base {
@@ -213,6 +269,23 @@
   input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(0.8);
   }
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+  [data-theme="light"] body::before {
+    background:
+      radial-gradient(900px 480px at 78% -12%, rgb(26 127 115 / 0.06), transparent 70%),
+      radial-gradient(700px 420px at 12% 108%, rgb(43 103 196 / 0.04), transparent 70%);
+  }
+  [data-theme="light"] input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: none;
+  }
+}
+
+/* Cross-fade saat ganti tema (lihat useTheme). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 220ms;
 }
 
 @utility tabular {
@@ -259,6 +332,41 @@
   }
 }
 
+/*
+ * Cairan di tangki BBM (FuelTank). Path gelombang dua kali lebar tangki;
+ * -50% view-box = satu periode, jadi loop-nya mulus. Lapisan belakang
+ * bergerak berlawanan arah dan lebih lambat, seluruh cairan sedikit berayun.
+ */
+.fuel-wave,
+.fuel-bob {
+  transform-box: view-box;
+}
+.fuel-wave--front {
+  animation: fuel-wave 3.2s linear infinite;
+}
+.fuel-wave--back {
+  animation: fuel-wave 5.4s linear infinite reverse;
+}
+.fuel-bob {
+  animation: fuel-bob 3.6s ease-in-out infinite alternate;
+}
+@keyframes fuel-wave {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes fuel-bob {
+  from {
+    transform: translateY(-2px);
+  }
+  to {
+    transform: translateY(2px);
+  }
+}
+
 /* Leaflet: peta gelap, popup dan kontrol mengikuti lapisan elevated. */
 /* !important: leaflet.css dimuat belakangan bersama chunk peta dan akan menimpa latar. */
 .leaflet-container {
@@ -268,12 +376,15 @@
 .unit-map-tiles {
   filter: saturate(0.6) brightness(0.92);
 }
+[data-theme="light"] .unit-map-tiles {
+  filter: saturate(0.7);
+}
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
   background: var(--color-elevated);
   color: var(--color-ink);
   border: 1px solid var(--color-line-strong);
-  box-shadow: 0 12px 32px rgb(0 0 0 / 0.45);
+  box-shadow: 0 12px 32px var(--color-shadow);
 }
 .leaflet-popup-content-wrapper {
   border-radius: 8px;
@@ -306,7 +417,7 @@
 }
 .leaflet-control-attribution {
   font-size: 10px !important;
-  background: rgb(9 14 21 / 0.75) !important;
+  background: color-mix(in srgb, var(--color-canvas) 75%, transparent) !important;
   color: var(--color-subtle) !important;
 }
 .leaflet-control-attribution a {
@@ -321,8 +432,8 @@
   position: absolute;
   inset: 0;
   border-radius: 9999px;
-  border: 1.5px solid rgb(9 14 21 / 0.85);
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.14);
+  border: 1.5px solid color-mix(in srgb, var(--color-canvas) 85%, transparent);
+  box-shadow: 0 0 0 1px var(--color-fill-strong);
 }
 .site-marker__pulse {
   position: absolute;

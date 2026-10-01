@@ -31,7 +31,7 @@ export function Dropdown({ trigger, children, align = "right", className, panelC
         <div
           id={id}
           className={cn(
-            "animate-pop-in absolute top-full z-40 mt-2 rounded-lg border border-line-strong bg-elevated shadow-[0_20px_48px_rgb(0_0_0/0.5)]",
+            "animate-pop-in absolute top-full z-40 mt-2 rounded-lg border border-line-strong bg-elevated shadow-[0_20px_48px_var(--color-shadow)]",
             align === "right" ? "right-0" : "left-0",
             panelClassName
           )}

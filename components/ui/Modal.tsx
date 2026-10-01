@@ -38,7 +38,7 @@ export function Modal({ open, onClose, title, description, footer, children, loc
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="animate-pop-in relative flex max-h-[90vh] w-full flex-col rounded-t-xl border border-line-strong bg-elevated shadow-[0_24px_80px_rgb(0_0_0/0.6)] outline-none sm:max-w-[480px] sm:rounded-xl"
+        className="animate-pop-in relative flex max-h-[90vh] w-full flex-col rounded-t-xl border border-line-strong bg-elevated shadow-[0_24px_80px_var(--color-shadow)] outline-none sm:max-w-[480px] sm:rounded-xl"
       >
         <header className="flex items-start justify-between gap-4 px-6 pt-5 pb-4">
           <div>

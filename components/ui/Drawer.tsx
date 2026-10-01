@@ -52,7 +52,7 @@ export function Drawer({
         aria-labelledby={titleId}
         tabIndex={-1}
         className={cn(
-          "animate-drawer-in absolute inset-y-0 right-0 flex w-full flex-col border-l border-line-strong bg-elevated shadow-[-24px_0_60px_rgb(0_0_0/0.5)] outline-none",
+          "animate-drawer-in absolute inset-y-0 right-0 flex w-full flex-col border-l border-line-strong bg-elevated shadow-[-24px_0_60px_var(--color-shadow)] outline-none",
           width === "lg" ? "max-w-[560px]" : "max-w-[460px]"
         )}
       >

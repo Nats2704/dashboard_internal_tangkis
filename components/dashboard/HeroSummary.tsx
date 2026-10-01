@@ -137,7 +137,7 @@ export function HeroSummary({
         <BigValue>
           <CountUp value={fleet.online} />
         </BigValue>
-        <div className="mt-2 h-1 overflow-hidden rounded-full bg-white/[0.06]" aria-hidden>
+        <div className="mt-2 h-1 overflow-hidden rounded-full bg-fill" aria-hidden>
           <div className="h-full rounded-full bg-success" style={{ width: `${onlinePct}%` }} />
         </div>
       </KpiCard>

@@ -11,7 +11,7 @@ npm run build    # build produksi
 npm run lint
 ```
 
-Butuh Node.js 20.9 atau lebih baru. Font Geist Sans dan Geist Mono dibundel lewat paket `geist`, jadi build tidak perlu mengunduh font. Peta memakai Leaflet dengan tile gelap CARTO `dark_all` (tanpa API key, bisa diganti lewat `NEXT_PUBLIC_MAP_TILE_URL`). Kalau tile tidak bisa dimuat, marker unit tetap tampil dan muncul catatan kecil di peta.
+Butuh Node.js 20.9 atau lebih baru. Font Geist Sans dan Geist Mono dibundel lewat paket `geist`, jadi build tidak perlu mengunduh font. Peta memakai Leaflet dengan tile Esri Canvas, Dark Gray untuk mode gelap dan Light Gray untuk mode terang (tanpa API key, bisa diganti lewat `NEXT_PUBLIC_MAP_TILE_URL`). Kalau tile tidak bisa dimuat, marker unit tetap tampil dan muncul catatan kecil di peta.
 
 ## Desain
 

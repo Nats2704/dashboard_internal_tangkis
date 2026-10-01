@@ -36,7 +36,7 @@ function TrendTooltip({
   if (!active || !payload?.length) return null;
   const value = Number(payload[0].value);
   return (
-    <div className="rounded-md border border-line-strong bg-elevated px-3 py-2 text-[12.5px] shadow-[0_12px_32px_rgb(0_0_0/0.45)]">
+    <div className="rounded-md border border-line-strong bg-elevated px-3 py-2 text-[12.5px] shadow-[0_12px_32px_var(--color-shadow)]">
       <p className="text-[11px] text-muted">Minggu {label}</p>
       <p className="tabular mt-0.5 text-[15px] font-semibold text-ink">
         {formatNumber(value, metric === "deviation" ? 2 : 1)}%

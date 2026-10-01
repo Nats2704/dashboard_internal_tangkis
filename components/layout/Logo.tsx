@@ -22,17 +22,19 @@ export function Logo({ collapsed }: { collapsed?: boolean }) {
       {!collapsed ? (
         <div className="leading-none">
           {/*
-            Wordmark aslinya hijau tua di atas transparan dan tenggelam di
-            sidebar gelap. brightness-0 invert mewarnai ulang bentuk hurufnya
-            jadi putih polos tanpa merusak alpha PNG.
+            wordmark-tight.png: wordmark resmi dengan ruang kosong transparan di
+            sekelilingnya dipangkas, supaya hurufnya terbaca besar (versi asli
+            hanya ~30% tinggi gambar). Hijau tua aslinya tenggelam di sidebar
+            gelap, jadi di mode gelap brightness-0 invert mewarnainya putih
+            polos tanpa merusak alpha PNG; di mode terang warna brand asli tampil.
           */}
           <Image
-            src="/brand/wordmark.png"
+            src="/brand/wordmark-tight.png"
             alt="TANGKIS"
-            width={2172}
-            height={724}
+            width={1849}
+            height={241}
             priority
-            className="h-[13px] w-auto brightness-0 invert"
+            className="h-[14px] w-auto brightness-0 invert light:brightness-100 light:invert-0"
           />
           <p className="mt-1.5 text-[10.5px] tracking-[0.06em] text-subtle uppercase">Monitoring Operasional</p>
         </div>

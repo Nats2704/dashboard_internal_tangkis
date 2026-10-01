@@ -24,7 +24,7 @@ export function Meter({
       aria-valuemax={max}
       aria-valuenow={value}
       aria-label={label}
-      className={cn("h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]", className)}
+      className={cn("h-1.5 w-full overflow-hidden rounded-full bg-fill", className)}
     >
       <div
         className={cn(

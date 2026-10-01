@@ -36,7 +36,7 @@ function Reading({
         {Icon ? <Icon className="size-3.5 text-subtle" strokeWidth={1.75} /> : null}
         {meta.label}
       </p>
-      <p className="tabular mt-1 text-[26px] leading-8 font-semibold tracking-[-0.03em] text-ink">
+      <p className="tabular mt-1 text-[30px] leading-9 font-semibold tracking-[-0.03em] text-ink">
         {value === null ? "—" : formatNumber(value, meta.decimals)}
         <span className="ml-1 text-[12px] font-medium tracking-normal text-muted">{meta.unit}</span>
       </p>
@@ -96,7 +96,7 @@ export function FuelIntelligence({ sensors }: { sensors: Sensor[] }) {
       />
       <div className="grid border-t border-line xl:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
         {/* Tangki terpilih */}
-        <div className="border-b border-line px-5 py-5 xl:border-r xl:border-b-0">
+        <div className="flex flex-col border-b border-line px-5 py-5 xl:border-r xl:border-b-0">
           {selected ? (
             <>
               <div className="flex flex-wrap items-start justify-between gap-3">
@@ -115,19 +115,22 @@ export function FuelIntelligence({ sensors }: { sensors: Sensor[] }) {
                   <ArrowUpRight className="size-3.5 transition-transform group-hover:-translate-y-px group-hover:translate-x-px" />
                 </Link>
               </div>
-              <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:items-center">
-                <FuelTank
-                  key={selected.deviceId}
-                  level={selected.level}
-                  label={`Level BBM ${selected.deviceId}: ${selected.level === null ? "tanpa data" : `${formatNumber(selected.level, 1)}%`}`}
-                />
-                <div className="grid flex-1 grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-1 lg:grid-cols-2">
+              {/* Di sm ke atas tangki ikut meregang setinggi kolom (min 280px). */}
+              <div className="mt-5 flex flex-1 flex-col gap-6 sm:flex-row sm:items-stretch">
+                <div className="h-[280px] w-[168px] shrink-0 self-center sm:h-auto sm:min-h-[280px] sm:self-stretch">
+                  <FuelTank
+                    key={selected.deviceId}
+                    level={selected.level}
+                    label={`Level BBM ${selected.deviceId}: ${selected.level === null ? "tanpa data" : `${formatNumber(selected.level, 1)}%`}`}
+                  />
+                </div>
+                <div className="grid flex-1 grid-cols-2 content-center gap-x-6 gap-y-8 sm:grid-cols-1 lg:grid-cols-2">
                   <Reading kind="level" value={selected.level} sensor={selected.sensors.level} />
                   <Reading kind="water" value={selected.water} sensor={selected.sensors.water} icon={Droplets} />
                   <Reading kind="temperature" value={selected.temperature} sensor={selected.sensors.temperature} icon={Thermometer} />
                   <div className="min-w-0">
                     <p className="text-[11.5px] text-muted">Kalibrasi terakhir</p>
-                    <p className="tabular mt-1 text-[15px] font-medium text-ink-2">
+                    <p className="tabular mt-1 text-[17px] font-medium text-ink-2">
                       {formatDate(selected.sensors.water?.lastCalibration ?? null)}
                     </p>
                     <p className="mt-0.5 text-[11.5px] text-muted">
@@ -143,7 +146,7 @@ export function FuelIntelligence({ sensors }: { sensors: Sensor[] }) {
         </div>
 
         {/* Ringkasan armada */}
-        <div className="min-w-0">
+        <div className="flex min-w-0 flex-col">
           <dl className="grid grid-cols-2 border-b border-line sm:grid-cols-4 [&>div]:px-5 [&>div]:py-3.5">
             <div>
               <dt className="text-[11.5px] text-muted">Rata-rata level</dt>
@@ -174,10 +177,10 @@ export function FuelIntelligence({ sensors }: { sensors: Sensor[] }) {
             </div>
           </dl>
 
-          <div className="grid gap-6 px-5 py-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
-            <div>
+          <div className="grid flex-1 gap-6 px-5 py-4 sm:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
+            <div className="flex flex-col">
               <SubHeading>Sebaran level BBM</SubHeading>
-              <div className="flex h-[132px] items-end gap-2" role="img" aria-label={summary.levelBins.map((b) => `${b.label}: ${b.count} tangki`).join(", ")}>
+              <div className="flex min-h-[160px] flex-1 items-end gap-2" role="img" aria-label={summary.levelBins.map((b) => `${b.label}: ${b.count} tangki`).join(", ")}>
                 {summary.levelBins.map((bin, i) => (
                   <div key={bin.label} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
                     <span className="tabular text-[11.5px] font-medium text-ink-2">{bin.count}</span>
@@ -226,7 +229,7 @@ export function FuelIntelligence({ sensors }: { sensors: Sensor[] }) {
                           </span>
                           <span className="block truncate text-[11px] text-muted">{buildingById.get(tank.buildingId)?.name}</span>
                         </span>
-                        <span className="h-1 overflow-hidden rounded-full bg-white/[0.06]" aria-hidden>
+                        <span className="h-1 overflow-hidden rounded-full bg-fill" aria-hidden>
                           <span
                             className={cn("block h-full rounded-full", ranking === "water" ? "bg-info/70" : "bg-warning/80")}
                             style={{ width: `${((value ?? 0) / max) * 100}%` }}

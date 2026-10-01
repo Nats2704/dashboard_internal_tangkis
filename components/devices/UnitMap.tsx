@@ -7,14 +7,30 @@ import { divIcon } from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { CONNECTIVITY } from "@/lib/constants/status";
 import { formatRelative } from "@/lib/utils/format";
+import { useTheme } from "@/lib/hooks/useTheme";
+import type { Theme } from "@/lib/theme";
 import { MARKER_COLOR, REGIONS, type MapFilter, type RegionKey, type SiteMarker } from "./map-types";
 
-// Peta dasar gelap CARTO (data OpenStreetMap), tanpa API key. Bisa diganti lewat env.
-const TILE_URL =
-  process.env.NEXT_PUBLIC_MAP_TILE_URL || "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png";
+// Peta dasar Esri Canvas (Light/Dark Gray), tanpa API key. CARTO basemaps
+// sekarang mewajibkan API key dan tile.openstreetmap.org memblokir pemakaian
+// aplikasi, keduanya hanya mengembalikan gambar peringatan. Esri memisahkan
+// peta dasar dan label nama tempat, jadi dipasang dua lapis. Env menimpa
+// peta dasar dengan satu URL (dan label Esri tidak dipakai).
+const ESRI = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas";
+const CUSTOM_TILE_URL = process.env.NEXT_PUBLIC_MAP_TILE_URL;
+const TILES: Record<Theme, { base: string; labels: string | null }> = {
+  dark: {
+    base: CUSTOM_TILE_URL || `${ESRI}/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`,
+    labels: CUSTOM_TILE_URL ? null : `${ESRI}/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}`,
+  },
+  light: {
+    base: CUSTOM_TILE_URL || `${ESRI}/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}`,
+    labels: CUSTOM_TILE_URL ? null : `${ESRI}/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}`,
+  },
+};
 const TILE_ATTRIBUTION =
   process.env.NEXT_PUBLIC_MAP_TILE_ATTRIBUTION ||
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
+  'Tiles &copy; <a href="https://www.esri.com">Esri</a> &mdash; Esri, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
 function FitRegion({ region }: { region: RegionKey }) {
   const map = useMap();
@@ -65,6 +81,8 @@ export default function UnitMap({ sites, filter, region }: UnitMapProps) {
   const [tileErrors, setTileErrors] = useState(0);
   const [tilesLoaded, setTilesLoaded] = useState(false);
   const tilesFailed = tileErrors > 2 && !tilesLoaded;
+  // Peta hanya dirender di client (ssr: false), jadi tema sudah diketahui di sini.
+  const theme = useTheme().theme ?? "dark";
 
   return (
     // absolute inset-0, bukan h-full: mengisi kotak relative induknya lewat
@@ -83,8 +101,11 @@ export default function UnitMap({ sites, filter, region }: UnitMapProps) {
       >
         <FitRegion region={region} />
         <TileLayer
-          url={TILE_URL}
+          key={theme}
+          url={TILES[theme].base}
           attribution={TILE_ATTRIBUTION}
+          // Esri Canvas hanya tersedia sampai zoom 16; di atasnya Leaflet memperbesar tile 16.
+          maxNativeZoom={16}
           maxZoom={19}
           className="unit-map-tiles"
           eventHandlers={{
@@ -92,6 +113,15 @@ export default function UnitMap({ sites, filter, region }: UnitMapProps) {
             tileload: () => setTilesLoaded(true),
           }}
         />
+        {TILES[theme].labels ? (
+          <TileLayer
+            key={`${theme}-labels`}
+            url={TILES[theme].labels}
+            maxNativeZoom={16}
+            maxZoom={19}
+            className="unit-map-tiles"
+          />
+        ) : null}
         {sites.map((site) => (
           <SiteMarkerView key={site.building.id} site={site} filter={filter} />
         ))}
