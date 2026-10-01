@@ -9,6 +9,7 @@ import { ServiceSummaryStrip } from "@/components/dashboard/ServiceOverview";
 import { SERVICE_PERIOD_LABEL } from "@/lib/constants";
 import { CostByCause } from "./CostByCause";
 import { ServiceWorkspace, type TicketFilter } from "./ServiceWorkspace";
+import { TechnicianLoad } from "./TechnicianLoad";
 
 const VALID: TicketFilter[] = ["all", "open", "in_progress", "completed"];
 
@@ -23,8 +24,14 @@ export function ServiceView() {
       <Panel labelledBy="ringkasan-servis">
         <SectionHeader id="ringkasan-servis" title="Ringkasan" description={SERVICE_PERIOD_LABEL} />
         <ServiceSummaryStrip />
-        <div className="px-5 py-4 lg:max-w-xl">
-          <CostByCause tickets={tickets} />
+        {/* Dua kolom di xl, bertumpuk di layar kecil. */}
+        <div className="grid xl:grid-cols-2">
+          <div className="border-b border-line px-5 py-4 xl:border-r xl:border-b-0">
+            <CostByCause tickets={tickets} />
+          </div>
+          <div className="px-5 py-4">
+            <TechnicianLoad />
+          </div>
         </div>
       </Panel>
       <Panel labelledBy="daftar-tiket">
