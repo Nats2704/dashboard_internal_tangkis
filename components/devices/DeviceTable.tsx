@@ -33,7 +33,7 @@ export function DeviceTable({
       key: "unit",
       header: "Unit",
       sortValue: (d) => d.id,
-      cell: (d) => <span className="font-medium text-ink">{d.id}</span>,
+      cell: (d) => <span className="font-mono text-[12.5px] font-medium text-ink">{d.id}</span>,
     },
     ...(showBuilding
       ? [

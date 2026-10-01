@@ -35,7 +35,7 @@ export function AppShell({ children, reference, devices, tickets, notifications,
           <ToastProvider>
             <a
               href="#konten"
-              className="sr-only z-[80] rounded-md bg-surface px-3 py-2 text-sm focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+              className="sr-only z-[80] rounded-md bg-elevated px-3 py-2 text-sm text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
             >
               Lewati ke konten
             </a>
@@ -44,11 +44,12 @@ export function AppShell({ children, reference, devices, tickets, notifications,
               onToggleCollapse={() => setCollapsed((v) => !v)}
               mobileOpen={mobileOpen}
               onMobileClose={closeMobile}
+              notifications={notifications}
             />
             <div
               className={cn(
                 "flex min-h-screen flex-col transition-[padding] duration-200 ease-out",
-                collapsed ? "lg:pl-[68px]" : "lg:pl-[248px]"
+                collapsed ? "lg:pl-16" : "lg:pl-[236px]"
               )}
             >
               <Header

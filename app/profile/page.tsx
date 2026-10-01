@@ -13,7 +13,7 @@ export default function ProfilePage() {
       <PageHeader title="Profil" />
       <Panel labelledBy="akun-title">
         <SectionHeader id="akun-title" title="Akun" description="Autentikasi belum aktif di prototipe ini." />
-        <div className="flex flex-col gap-6 px-5 py-5 sm:flex-row sm:items-start">
+        <div className="flex flex-col gap-6 border-t border-line px-5 py-5 sm:flex-row sm:items-start">
           <Avatar className="size-14 text-[18px]" />
           <DetailList
             className="flex-1"

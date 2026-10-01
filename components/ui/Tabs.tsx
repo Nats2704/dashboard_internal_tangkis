@@ -45,9 +45,9 @@ export function Tabs<V extends string>({
       role="tablist"
       aria-label={label}
       className={cn(
-        "scrollbar-thin flex max-w-full items-center overflow-x-auto",
+        "scrollbar-thin flex w-fit max-w-full items-center overflow-x-auto",
         variant === "segmented"
-          ? "gap-0.5 rounded-md bg-sunken p-0.5"
+          ? "gap-0.5 rounded-md border border-line bg-sunken p-0.5"
           : "gap-5 border-b border-line",
         className
       )}
@@ -67,13 +67,13 @@ export function Tabs<V extends string>({
             onClick={() => onChange(item.value)}
             onKeyDown={(e) => handleKey(e, index)}
             className={cn(
-              "flex shrink-0 items-center gap-1.5 text-[13px] font-medium whitespace-nowrap transition-colors",
+              "flex shrink-0 items-center gap-1.5 text-[12.5px] font-medium whitespace-nowrap transition-colors duration-150",
               variant === "segmented"
                 ? cn(
-                    "h-7 rounded-sm px-2.5",
+                    "h-7 rounded px-2.5",
                     selected
-                      ? "bg-surface text-ink ring-1 ring-line-strong/70"
-                      : "text-muted hover:text-ink"
+                      ? "bg-elevated text-ink shadow-[0_1px_2px_rgb(0_0_0/0.4)] ring-1 ring-line-strong"
+                      : "text-muted hover:bg-hover hover:text-ink-2"
                   )
                 : cn(
                     "-mb-px border-b-2 pb-2.5",
@@ -85,8 +85,8 @@ export function Tabs<V extends string>({
             {item.count !== undefined ? (
               <span
                 className={cn(
-                  "tabular text-[12px]",
-                  selected ? "text-muted" : "text-subtle"
+                  "tabular text-[11.5px]",
+                  selected ? "text-accent" : "text-subtle"
                 )}
               >
                 {item.count}

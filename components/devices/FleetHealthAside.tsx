@@ -82,7 +82,7 @@ export function FleetHealthAside({ devices, outdatedUpdatable, onUpdateFirmware,
                 onClick={() => onSelectDevice(d.id)}
                 className="w-full rounded text-left text-[13px] leading-snug hover:text-ink"
               >
-                <span className="font-medium text-ink">{d.id}</span>
+                <span className="font-mono text-[12.5px] font-medium text-ink">{d.id}</span>
                 <span className="text-muted"> · {d.maintenanceNote}</span>
               </button>
             </li>

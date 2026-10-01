@@ -7,6 +7,7 @@ import { Panel, SectionHeader } from "@/components/ui/Panel";
 import { SearchInput } from "@/components/ui/SearchInput";
 import { SensorSummaryStrip } from "@/components/dashboard/SensorHealth";
 import { SensorTrendChart } from "./SensorTrendChart";
+import { SensorKindBreakdown } from "./SensorKindBreakdown";
 import { SensorWorkspace, type SensorFilter } from "./SensorWorkspace";
 
 const VALID: SensorFilter[] = ["all", "normal", "stuck", "out_of_range", "calibration", "no_data"];
@@ -17,12 +18,17 @@ export function SensorsView({ sensors, trend }: { sensors: Sensor[]; trend: Sens
   const status = params.get("status") as SensorFilter | null;
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-4 lg:space-y-5">
       <Panel labelledBy="ringkasan-sensor">
         <SectionHeader id="ringkasan-sensor" title="Ringkasan sensor" description="Tiga sensor per unit terpasang: level BBM, kadar air, dan suhu tangki." />
         <SensorSummaryStrip sensors={sensors} />
-        <div className="px-5 py-5 lg:max-w-3xl">
-          <SensorTrendChart data={trend} />
+        <div className="grid xl:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="min-w-0 border-b border-line px-5 py-5 xl:border-r xl:border-b-0">
+            <SensorTrendChart data={trend} />
+          </div>
+          <div className="px-5 py-5">
+            <SensorKindBreakdown sensors={sensors} />
+          </div>
         </div>
       </Panel>
       <Panel labelledBy="daftar-sensor">

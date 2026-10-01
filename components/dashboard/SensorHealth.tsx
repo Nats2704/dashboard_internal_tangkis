@@ -61,7 +61,8 @@ export function SensorHealth({ sensors, trend }: { sensors: Sensor[]; trend: Sen
     <Panel id="kesehatan-sensor" labelledBy="kesehatan-sensor-title">
       <SectionHeader
         id="kesehatan-sensor-title"
-        title="Kesehatan Sensor"
+        eyebrow="Kualitas data"
+        title="Kesehatan sensor"
         description="Level BBM, kadar air, dan suhu tangki dibandingkan dengan sampel lab terakhir."
         href="/sensors"
         linkLabel="Lihat semua sensor"

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Bell } from "lucide-react";
+import { ArrowRight, Bell } from "lucide-react";
 import type { AppNotification, NotificationSeverity } from "@/types/notification";
 import { Dropdown } from "@/components/ui/Dropdown";
 import { StatusDot } from "@/components/ui/Badge";
@@ -16,9 +16,16 @@ const SEVERITY_TONE: Record<NotificationSeverity, Tone> = {
   info: "info",
 };
 
+const SEVERITY_LABEL: Record<NotificationSeverity, string> = {
+  critical: "Kritis",
+  warning: "Perhatian",
+  info: "Info",
+};
+
 export function NotificationMenu({ notifications }: { notifications: AppNotification[] }) {
   const [readIds, setReadIds] = useState<Set<string>>(() => new Set());
   const unread = notifications.filter((n) => !readIds.has(n.id)).length;
+  const unreadCritical = notifications.some((n) => n.severity === "critical" && !readIds.has(n.id));
 
   return (
     <Dropdown
@@ -31,13 +38,20 @@ export function NotificationMenu({ notifications }: { notifications: AppNotifica
           aria-controls={id}
           aria-label={`Notifikasi, ${unread} belum dibaca`}
           className={cn(
-            "relative rounded-md p-2 text-ink-2 hover:bg-black/[0.05] hover:text-ink",
-            open && "bg-black/[0.05] text-ink"
+            "relative rounded-md p-2 text-ink-2 transition-colors hover:bg-hover hover:text-ink",
+            open && "bg-hover text-ink"
           )}
         >
-          <Bell className="size-[18px]" />
+          <Bell className="size-[18px]" strokeWidth={1.75} />
           {unread > 0 ? (
-            <span className="tabular absolute top-1 right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-danger px-1 text-[10px] font-semibold text-white">
+            // key mengikuti jumlah: badge "meletup" kecil setiap kali angkanya berubah.
+            <span
+              key={unread}
+              className={cn(
+                "tabular absolute top-1 right-1 flex h-4 min-w-4 animate-badge-pop items-center justify-center rounded-full px-1 text-[10px] font-semibold ring-2 ring-canvas",
+                unreadCritical ? "bg-danger text-white" : "bg-warning text-on-accent"
+              )}
+            >
               {unread}
             </span>
           ) : null}
@@ -47,12 +61,12 @@ export function NotificationMenu({ notifications }: { notifications: AppNotifica
       {(close) => (
         <div>
           <div className="flex items-center justify-between border-b border-line px-4 py-3">
-            <p className="text-[14px] font-semibold">Notifikasi</p>
+            <p className="text-[13.5px] font-semibold text-ink">Notifikasi</p>
             <button
               type="button"
               disabled={unread === 0}
               onClick={() => setReadIds(new Set(notifications.map((n) => n.id)))}
-              className="text-[13px] font-medium text-accent hover:underline disabled:text-subtle disabled:no-underline"
+              className="rounded text-[12.5px] font-medium text-accent hover:underline disabled:text-subtle disabled:no-underline"
             >
               Tandai semua dibaca
             </button>
@@ -68,15 +82,17 @@ export function NotificationMenu({ notifications }: { notifications: AppNotifica
                       setReadIds((set) => new Set(set).add(n.id));
                       close();
                     }}
-                    className="flex gap-3 px-4 py-3 hover:bg-sunken"
+                    className="flex gap-3 px-4 py-3 transition-colors hover:bg-hover"
                   >
                     <StatusDot tone={SEVERITY_TONE[n.severity]} className="mt-1.5" />
                     <div className="min-w-0 flex-1">
-                      <p className={cn("text-[13px] leading-snug", isRead ? "text-ink-2" : "font-medium text-ink")}>
+                      <p className={cn("text-[13px] leading-snug", isRead ? "text-muted" : "font-medium text-ink")}>
                         {n.title}
                       </p>
-                      <p className="mt-0.5 text-[13px] leading-snug text-muted">{n.description}</p>
-                      <p className="mt-1 text-[12px] text-subtle">{formatRelative(n.createdAt)}</p>
+                      <p className="mt-0.5 text-[12.5px] leading-snug text-muted">{n.description}</p>
+                      <p className="mt-1 text-[11.5px] text-subtle">
+                        {SEVERITY_LABEL[n.severity]} · {formatRelative(n.createdAt)}
+                      </p>
                     </div>
                     {!isRead ? <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-accent" aria-label="Belum dibaca" /> : null}
                   </Link>
@@ -84,6 +100,14 @@ export function NotificationMenu({ notifications }: { notifications: AppNotifica
               );
             })}
           </ul>
+          <Link
+            href="/alerts"
+            onClick={close}
+            className="group flex items-center justify-center gap-1.5 border-t border-line px-4 py-2.5 text-[12.5px] font-medium text-accent hover:bg-hover"
+          >
+            Buka semua alarm
+            <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+          </Link>
         </div>
       )}
     </Dropdown>

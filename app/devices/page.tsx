@@ -16,7 +16,7 @@ export default async function DevicesPage() {
         title="Unit & Perangkat"
         description="Kesehatan setiap unit: koneksi, sinyal, baterai cadangan, firmware, dan status maintenance."
       />
-      <div className="space-y-12">
+      <div className="space-y-4 lg:space-y-5">
         <HeroSummary />
         <Suspense>
           <DevicesView sensors={sensors} contracts={contracts} />

@@ -7,6 +7,8 @@ export interface AppNotification {
   description: string;
   href: string;
   createdAt: string;
+  /** Unit yang menjadi pokok alarm, bila alarm menyangkut satu unit. Opsional. */
+  deviceId?: string;
 }
 
 export type SearchResultKind = "device" | "building" | "ticket";

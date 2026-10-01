@@ -31,7 +31,7 @@ export function Dropdown({ trigger, children, align = "right", className, panelC
         <div
           id={id}
           className={cn(
-            "animate-pop-in absolute top-full z-40 mt-2 rounded-lg border border-line bg-surface shadow-[0_12px_32px_rgb(10_29_25/0.12)]",
+            "animate-pop-in absolute top-full z-40 mt-2 rounded-lg border border-line-strong bg-elevated shadow-[0_20px_48px_rgb(0_0_0/0.5)]",
             align === "right" ? "right-0" : "left-0",
             panelClassName
           )}
@@ -58,7 +58,7 @@ export function DropdownItem({
 }) {
   const classes = cn(
     "flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-left text-[13px] text-ink-2",
-    disabled ? "cursor-not-allowed text-subtle" : "hover:bg-black/[0.04] hover:text-ink"
+    disabled ? "cursor-not-allowed text-subtle" : "transition-colors hover:bg-hover hover:text-ink"
   );
   if (href && !disabled) {
     return (

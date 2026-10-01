@@ -32,7 +32,7 @@ export function SensorTable({ sensors, onSelect, selectedId, pageSize }: SensorT
       key: "id",
       header: "Sensor",
       sortValue: (s) => s.id,
-      cell: (s) => <span className="font-medium text-ink">{s.id}</span>,
+      cell: (s) => <span className="font-mono text-[12.5px] font-medium text-ink">{s.id}</span>,
     },
     {
       key: "kind",

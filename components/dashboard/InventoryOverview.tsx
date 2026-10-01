@@ -7,7 +7,8 @@ export function InventoryOverview({ records, flows }: { records: InventoryRecord
     <Panel id="stok" labelledBy="stok-title">
       <SectionHeader
         id="stok-title"
-        title="Stok Perangkat"
+        eyebrow="Logistik"
+        title="Stok perangkat"
         description="Posisi setiap unit dalam siklus gudang, pemasangan, perbaikan, dan penarikan."
         href="/inventory"
         linkLabel="Lihat semua stok"

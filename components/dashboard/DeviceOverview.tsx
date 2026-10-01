@@ -46,7 +46,8 @@ export function DeviceOverview({ sensors, contracts }: { sensors: Sensor[]; cont
     <Panel id="kesehatan-alat" labelledBy="kesehatan-alat-title">
       <SectionHeader
         id="kesehatan-alat-title"
-        title="Kesehatan Alat"
+        eyebrow="Perangkat"
+        title="Kesehatan alat"
         description={`Status koneksi, sinyal, baterai, dan firmware ${fleet.installed} unit terpasang.`}
         href="/devices"
         linkLabel="Lihat semua unit"

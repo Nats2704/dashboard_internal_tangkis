@@ -19,7 +19,7 @@ export function InventoryTable({ records, onSelect, selectedId, pageSize }: Inve
       key: "unit",
       header: "Unit",
       sortValue: (r) => r.deviceId,
-      cell: (r) => <span className="font-medium text-ink">{r.deviceId}</span>,
+      cell: (r) => <span className="font-mono text-[12.5px] font-medium text-ink">{r.deviceId}</span>,
     },
     {
       key: "stage",

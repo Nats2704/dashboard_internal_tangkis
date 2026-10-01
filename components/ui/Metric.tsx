@@ -13,26 +13,26 @@ interface MetricProps {
   className?: string;
 }
 
-// lg hanya untuk angka utama di puncak halaman; section memakai md supaya hierarki jelas.
+// Angka telemetri adalah fokus: besar dan rapat, satuan kecil dan redup.
 const VALUE_SIZE = {
   lg: "text-[30px] leading-9",
-  md: "text-[20px] leading-7",
+  md: "text-[22px] leading-7",
   sm: "text-[17px] leading-6",
 };
 
 export function Metric({ label, value, unit, hint, tone, size = "md", className }: MetricProps) {
   return (
     <div className={cn("min-w-0", className)}>
-      <p className="text-[13px] text-muted">{label}</p>
+      <p className="text-[12px] text-muted">{label}</p>
       <p
         className={cn(
-          "tabular mt-1 font-semibold tracking-[-0.02em]",
+          "tabular mt-1 font-semibold tracking-[-0.025em]",
           VALUE_SIZE[size],
           tone && tone !== "neutral" ? TONE_TEXT[tone] : "text-ink"
         )}
       >
         {value}
-        {unit ? <span className="ml-1 text-[13px] font-medium text-muted">{unit}</span> : null}
+        {unit ? <span className="ml-1 text-[12px] font-medium tracking-normal text-muted">{unit}</span> : null}
       </p>
       {hint ? <p className="mt-1 text-[12px] leading-snug text-muted">{hint}</p> : null}
     </div>

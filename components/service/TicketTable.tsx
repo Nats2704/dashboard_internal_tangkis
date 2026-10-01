@@ -34,8 +34,8 @@ export function TicketTable({ tickets, onSelect, selectedId, pageSize }: TicketT
       sortValue: (t) => t.deviceId,
       cell: (t) => (
         <span>
-          <span className="font-medium text-ink">{t.deviceId}</span>
-          <span className="ml-2 hidden text-[12px] text-subtle xl:inline">{t.id}</span>
+          <span className="font-mono text-[12.5px] font-medium text-ink">{t.deviceId}</span>
+          <span className="ml-2 hidden font-mono text-[11.5px] text-subtle xl:inline">{t.id}</span>
         </span>
       ),
     },

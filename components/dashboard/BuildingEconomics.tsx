@@ -74,7 +74,8 @@ export function BuildingEconomics({ rows }: { rows: BuildingEconomicsRow[] }) {
     <Panel id="ekonomi-gedung" labelledBy="ekonomi-gedung-title">
       <SectionHeader
         id="ekonomi-gedung-title"
-        title="Ekonomi Nyata per Gedung"
+        eyebrow="Model bisnis"
+        title="Ekonomi nyata per gedung"
         description="Biaya layanan aktual per unit per tahun dibanding asumsi di model Excel."
         href="/economics"
         linkLabel="Lihat rincian ekonomi"

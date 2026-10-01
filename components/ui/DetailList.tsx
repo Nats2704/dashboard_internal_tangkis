@@ -26,11 +26,11 @@ export function DetailList({
     >
       {items.map((item) => (
         <div key={item.label} className="min-w-0">
-          <dt className="text-[12px] text-muted">{item.label}</dt>
+          <dt className="text-[11.5px] text-muted">{item.label}</dt>
           <dd
             className={cn(
-              "mt-0.5 text-[14px] text-ink",
-              item.mono && "tabular font-mono text-[13px]"
+              "mt-0.5 text-[13.5px] text-ink",
+              item.mono && "tabular font-mono text-[12.5px]"
             )}
           >
             {item.value}
@@ -52,7 +52,7 @@ export function DrawerSection({
 }) {
   return (
     <section className={cn("border-t border-line px-6 py-5 first:border-t-0", className)}>
-      <h3 className="mb-3 text-[12px] font-semibold tracking-[0.06em] text-muted uppercase">
+      <h3 className="eyebrow mb-3">
         {title}
       </h3>
       {children}

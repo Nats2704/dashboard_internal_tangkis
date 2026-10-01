@@ -25,7 +25,8 @@ export function VendorOverview({ requests }: { requests: VendorRequest[] }) {
     <Panel id="vendor" labelledBy="vendor-title">
       <SectionHeader
         id="vendor-title"
-        title="Rujukan Vendor"
+        eyebrow="Mitra"
+        title="Rujukan vendor"
         description="Pekerjaan yang dirujuk ke mitra, dengan komisi untuk TANGKIS."
         href="/vendors"
         linkLabel="Lihat semua rujukan"

@@ -27,7 +27,7 @@ export function VendorRequestTable({ requests, onSelect, selectedId, pageSize }:
       key: "unit",
       header: "Unit",
       sortValue: (r) => r.deviceId,
-      cell: (r) => <span className="tabular">{r.deviceId}</span>,
+      cell: (r) => <span className="font-mono text-[12.5px]">{r.deviceId}</span>,
     },
     {
       key: "status",

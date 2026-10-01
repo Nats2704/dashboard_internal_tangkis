@@ -24,12 +24,12 @@ export function Meter({
       aria-valuemax={max}
       aria-valuenow={value}
       aria-label={label}
-      className={cn("h-1.5 w-full overflow-hidden rounded-full bg-black/[0.06]", className)}
+      className={cn("h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]", className)}
     >
       <div
         className={cn(
-          "h-full rounded-full",
-          tone === "accent" ? "bg-accent" : tone === "neutral" ? "bg-ink-2/60" : TONE_DOT[tone]
+          "h-full rounded-full transition-[width] duration-500 ease-out",
+          tone === "accent" ? "bg-accent" : tone === "neutral" ? "bg-ink-2/45" : TONE_DOT[tone]
         )}
         style={{ width: `${pct}%` }}
       />

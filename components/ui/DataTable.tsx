@@ -38,6 +38,12 @@ interface DataTableProps<T> {
   highlightIds?: Set<string>;
   /** Tabel ringkas untuk kolom sempit, tanpa lebar minimum. */
   compact?: boolean;
+  /**
+   * Tinggi maksimum area tabel. Bila diisi, tabel bergulir di dalam panel dan
+   * header kolom tetap menempel di atas. Default aktif untuk halaman berisi
+   * 15 baris atau lebih.
+   */
+  maxHeight?: string | null;
 }
 
 const HIDE: Record<NonNullable<Column<unknown>["hideBelow"]>, string> = {
@@ -69,7 +75,9 @@ export function DataTable<T>({
   className,
   highlightIds,
   compact = false,
+  maxHeight,
 }: DataTableProps<T>) {
+  const scrollHeight = maxHeight === undefined ? (pageSize && pageSize >= 15 ? "min(68vh, 660px)" : null) : maxHeight;
   const [sort, setSort] = useState<SortState | null>(initialSort ?? null);
   const [page, setPage] = useState(0);
 
@@ -113,11 +121,11 @@ export function DataTable<T>({
 
   return (
     <div className={cn("@container min-w-0", className)}>
-      <div className="scrollbar-thin overflow-x-auto">
+      <div className="scrollbar-thin overflow-x-auto" style={scrollHeight ? { maxHeight: scrollHeight } : undefined}>
         <table className={cn("w-full border-collapse text-left text-[13px]", !compact && "min-w-[520px]")}>
           <caption className="sr-only">{caption}</caption>
           <thead>
-            <tr className="border-b border-line">
+            <tr>
               {columns.map((column) => {
                 const active = sort?.key === column.key;
                 const ariaSort = active
@@ -131,7 +139,7 @@ export function DataTable<T>({
                     scope="col"
                     aria-sort={ariaSort}
                     className={cn(
-                      "h-10 px-5 text-[12px] font-medium whitespace-nowrap text-muted first:pl-5",
+                      "sticky top-0 z-[1] h-10 border-b border-line bg-surface/95 px-5 text-[11px] font-medium tracking-[0.06em] whitespace-nowrap text-muted uppercase backdrop-blur first:pl-5",
                       column.align === "right" && "text-right",
                       column.hideBelow && HIDE[column.hideBelow],
                       column.className
@@ -142,8 +150,8 @@ export function DataTable<T>({
                         type="button"
                         onClick={() => toggleSort(column.key)}
                         className={cn(
-                          "group -mx-1 inline-flex items-center gap-1 rounded px-1 py-0.5 hover:text-ink",
-                          active && "text-ink",
+                          "group -mx-1 inline-flex items-center gap-1 rounded px-1 py-0.5 uppercase transition-colors hover:text-ink",
+                          active && "text-accent",
                           column.align === "right" && "flex-row-reverse"
                         )}
                       >
@@ -185,10 +193,11 @@ export function DataTable<T>({
                     tabIndex={onRowClick ? 0 : undefined}
                     data-selected={selected || undefined}
                     className={cn(
-                      "border-b border-line/70 transition-colors last:border-b-0",
-                      onRowClick && "cursor-pointer hover:bg-sunken focus-visible:bg-sunken focus-visible:outline-none",
-                      selected && "bg-accent-soft/60 hover:bg-accent-soft/70",
-                      highlightIds?.has(id) && "bg-success-soft/50"
+                      "border-b border-line/60 transition-colors duration-150 last:border-b-0",
+                      onRowClick &&
+                        "cursor-pointer hover:bg-hover focus-visible:bg-hover focus-visible:outline-none [&:hover>td:first-child]:shadow-[inset_2px_0_0_var(--color-line-strong)]",
+                      selected && "bg-accent-soft hover:bg-accent-soft [&>td:first-child]:shadow-[inset_2px_0_0_var(--color-accent)]!",
+                      highlightIds?.has(id) && "bg-success-soft"
                     )}
                   >
                     {columns.map((column) => (
@@ -212,7 +221,7 @@ export function DataTable<T>({
         </table>
       </div>
       {pageSize && sorted.length > pageSize ? (
-        <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-2.5 text-[13px] text-muted">
+        <div className="flex items-center justify-between gap-3 border-t border-line px-5 py-2 text-[12.5px] text-muted">
           <span className="tabular">
             {safePage * pageSize + 1}–{Math.min(sorted.length, (safePage + 1) * pageSize)} dari{" "}
             {sorted.length}
@@ -222,7 +231,7 @@ export function DataTable<T>({
               type="button"
               onClick={() => setPage(Math.max(0, safePage - 1))}
               disabled={safePage === 0}
-              className="rounded-md p-1.5 hover:bg-black/[0.05] hover:text-ink disabled:opacity-35 disabled:hover:bg-transparent"
+              className="rounded-md p-1.5 transition-colors hover:bg-hover hover:text-ink disabled:opacity-35 disabled:hover:bg-transparent"
               aria-label="Halaman sebelumnya"
             >
               <ChevronLeft className="size-4" />
@@ -234,7 +243,7 @@ export function DataTable<T>({
               type="button"
               onClick={() => setPage(Math.min(pageCount - 1, safePage + 1))}
               disabled={safePage >= pageCount - 1}
-              className="rounded-md p-1.5 hover:bg-black/[0.05] hover:text-ink disabled:opacity-35 disabled:hover:bg-transparent"
+              className="rounded-md p-1.5 transition-colors hover:bg-hover hover:text-ink disabled:opacity-35 disabled:hover:bg-transparent"
               aria-label="Halaman berikutnya"
             >
               <ChevronRight className="size-4" />

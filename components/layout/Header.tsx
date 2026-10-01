@@ -1,12 +1,16 @@
 "use client";
 
-import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ChevronRight, Menu } from "lucide-react";
 import type { AppNotification, SearchEntry } from "@/types/notification";
-import { useNow } from "@/lib/hooks/useNow";
-import { formatClock, formatLongDate } from "@/lib/utils/format";
+import { useClock } from "@/lib/hooks/useClock";
+import { locateNav } from "@/lib/constants/navigation";
+import { DATA_SNAPSHOT_AT } from "@/lib/constants";
+import { formatClockSeconds, formatLongDate, formatShortDateTime } from "@/lib/utils/format";
 import { GlobalSearch } from "./GlobalSearch";
 import { NotificationMenu } from "./NotificationMenu";
 import { ProfileMenu } from "./ProfileMenu";
+import { SystemStatus } from "./SystemStatus";
 
 interface HeaderProps {
   onOpenMenu: () => void;
@@ -15,37 +19,64 @@ interface HeaderProps {
 }
 
 function Clock() {
-  const now = useNow();
+  const now = useClock();
   return (
-    <p className="tabular hidden text-right text-[13px] leading-tight text-muted lg:block" aria-live="off">
+    <div className="hidden text-right leading-tight xl:block" aria-live="off">
       {now ? (
         <>
-          <span className="block text-ink-2">{formatLongDate(now)}</span>
-          <span>{formatClock(now)} WIB</span>
+          <p className="tabular font-mono text-[13px] font-medium text-ink">
+            {formatClockSeconds(now)} <span className="font-sans text-[11px] font-normal text-muted">WIB</span>
+          </p>
+          <p className="text-[11px] text-subtle" title={formatLongDate(now)}>
+            Data per {formatShortDateTime(DATA_SNAPSHOT_AT)}
+          </p>
         </>
       ) : (
-        <span className="block h-8" />
+        <span className="block h-8 w-28" />
       )}
-    </p>
+    </div>
+  );
+}
+
+function Breadcrumb() {
+  const pathname = usePathname();
+  const location = locateNav(pathname);
+  if (!location) return null;
+  return (
+    <nav aria-label="Lokasi halaman" className="hidden min-w-0 items-center gap-1.5 text-[13px] md:flex">
+      <span className="text-subtle">{location.group}</span>
+      <ChevronRight className="size-3.5 shrink-0 text-subtle/70" aria-hidden />
+      <span className="truncate font-medium text-ink" aria-current="page">
+        {location.item.label}
+      </span>
+    </nav>
   );
 }
 
 export function Header({ onOpenMenu, searchEntries, notifications }: HeaderProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/85">
-      <div className="flex h-16 items-center gap-3 px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-20 border-b border-line bg-canvas/80 backdrop-blur-md supports-[backdrop-filter]:bg-canvas/70">
+      <div className="flex h-14 items-center gap-3 px-4 sm:px-6">
         <button
           type="button"
           onClick={onOpenMenu}
-          className="-ml-1.5 rounded-md p-2 text-ink-2 hover:bg-black/[0.05] lg:hidden"
+          className="-ml-1.5 rounded-md p-2 text-ink-2 hover:bg-hover hover:text-ink lg:hidden"
           aria-label="Buka menu"
         >
           <Menu className="size-5" />
         </button>
-        <GlobalSearch entries={searchEntries} />
-        <div className="ml-auto flex items-center gap-2 sm:gap-4">
+        <div className="w-auto shrink-0 md:w-[200px] xl:w-[240px]">
+          <Breadcrumb />
+        </div>
+        <div className="flex min-w-0 flex-1 justify-center">
+          <GlobalSearch entries={searchEntries} />
+        </div>
+        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+          <div className="hidden sm:block">
+            <SystemStatus notifications={notifications} />
+          </div>
           <Clock />
-          <div className="hidden h-8 w-px bg-line lg:block" aria-hidden />
+          <div className="hidden h-7 w-px bg-line sm:block" aria-hidden />
           <NotificationMenu notifications={notifications} />
           <ProfileMenu />
         </div>

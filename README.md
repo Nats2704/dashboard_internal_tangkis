@@ -11,7 +11,13 @@ npm run build    # build produksi
 npm run lint
 ```
 
-Butuh Node.js 20.9 atau lebih baru. Font Geist dibundel lewat paket `geist`, jadi build tidak perlu mengunduh font dari Google. Peta memakai Leaflet dengan tile CARTO (tanpa API key). Kalau tile tidak bisa dimuat, marker unit tetap tampil dan muncul catatan kecil di peta.
+Butuh Node.js 20.9 atau lebih baru. Font Geist Sans dan Geist Mono dibundel lewat paket `geist`, jadi build tidak perlu mengunduh font. Peta memakai Leaflet dengan tile gelap CARTO `dark_all` (tanpa API key, bisa diganti lewat `NEXT_PUBLIC_MAP_TILE_URL`). Kalau tile tidak bisa dimuat, marker unit tetap tampil dan muncul catatan kecil di peta.
+
+## Desain
+
+Tampilan bergaya ruang kendali untuk infrastruktur daya kritis: satu tema gelap dengan tiga lapis nada (latar, panel, lapisan melayang), warna status hanya untuk status, dan angka telemetri sebagai titik fokus. Prinsipnya *tampilkan dulu yang perlu perhatian*: Beranda dibuka dengan alarm aktif, lalu kesehatan armada, KPI, armada per gedung, kondisi BBM, tren sensor, peta dan log aktivitas, jaringan perangkat, kemudian modul operasional dan bisnis.
+
+Token warna, tipografi, radius, dan gerak ada di `app/globals.css`; keputusan dan aturannya ditulis di `design-system/tangkis/MASTER.md`. Semua animasi mati bila sistem meminta `prefers-reduced-motion`.
 
 ## Stack
 
@@ -45,22 +51,26 @@ Angka ringkasan (total unit, online, sensor normal, garansi hampir habis, dan se
 ## Struktur folder
 
 ```
-app/                    route: dashboard, devices, sensors, contracts, service,
+app/                    route: dashboard, alerts, devices, sensors, contracts, service,
                         inventory, vendors, economics, settings, profile
 components/
-  layout/               AppShell, Sidebar, Header, GlobalSearch, menu notifikasi & profil
-  dashboard/            section Beranda (HeroSummary, DeviceOverview, SensorHealth, ...)
+  layout/               AppShell, Sidebar, Header, GlobalSearch, SystemStatus, menu notifikasi & profil
+  dashboard/            section Beranda (ActiveAlerts, SystemHealth, HeroSummary, FleetNodes,
+                        FuelIntelligence, ActivityTimeline, DeviceNetwork, DeviceOverview, ...)
+  alerts/               IncidentCard, AlertList, ReportingStrip (Beranda dan halaman Alarm)
   devices/ sensors/ contracts/ service/ inventory/ vendors/ economics/
                         tabel, drawer, modal, dan "workspace" per domain
                         (dipakai ulang oleh dashboard dan halaman detail)
   providers/            FleetProvider, TicketProvider, ReferenceDataProvider
   ui/                   Button, Badge, Panel, Metric, Tabs, DataTable, Drawer, Modal,
-                        Dropdown, Toast, SearchInput
+                        Dropdown, Toast, SearchInput, HealthRing, Sparkline, CountUp, PulseDot
+design-system/          keputusan desain (MASTER.md)
 lib/
   mock-data/            generator data contoh
   services/             lapisan akses data
-  analytics/            perhitungan ringkasan (pure function)
-  constants/            ambang alarm, label status, navigasi
+  analytics/            perhitungan ringkasan (pure function), termasuk kesehatan unit,
+                        ringkasan per gedung, kondisi BBM, dan aliran aktivitas
+  constants/            ambang alarm, label status, navigasi, warna grafik
   hooks/  utils/
 types/                  tipe domain
 ```
@@ -75,4 +85,6 @@ Beberapa angka sengaja berbeda dari brief awal karena brief-nya saling bertabrak
 - Kontrak hanya untuk unit terpasang dan yang sedang diperbaiki (378 unit), bukan seluruh 468.
 - "Perlu kalibrasi" dihitung satu kali: 24 sensor yang tersebar di 23 unit.
 - Firmware rilis terbaru v2.4.1, jadi pembaruan menargetkan 18 unit online yang masih v2.3.x. Satu unit lama lain (GM-014) sedang offline dan menunggu.
+- Kesehatan armada di Beranda mengelompokkan unit terpasang: kritis bila offline; perhatian bila maintenance, ada sensor macet/di luar rentang/perlu kalibrasi, baterai di bawah 40%, atau sinyal di bawah −90 dBm; selain itu sehat. Aturan ini juga tertulis di halaman Pengaturan.
+- Jendela laporan di kartu insiden menganggap unit melapor tiap 15 menit sampai waktu data terakhirnya; slot setelah itu ditandai hilang.
 - Asumsi ekonomi dibaca sebagai Rp 1,9 jt per unit per tahun. Membandingkan biaya per gedung dengan satu angka tetap tidak adil karena jumlah unit tiap gedung berbeda (6 sampai 52 unit).

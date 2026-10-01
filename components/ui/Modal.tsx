@@ -31,18 +31,18 @@ export function Modal({ open, onClose, title, description, footer, children, loc
 
   return (
     <div className="fixed inset-0 z-[60] flex items-end justify-center p-0 sm:items-center sm:p-6">
-      <div className="animate-fade-in absolute inset-0 bg-brand-950/35" onClick={close} aria-hidden />
+      <div className="animate-fade-in absolute inset-0 bg-overlay backdrop-blur-[2px]" onClick={close} aria-hidden />
       <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         tabIndex={-1}
-        className="animate-pop-in relative flex max-h-[90vh] w-full flex-col rounded-t-xl bg-surface shadow-[0_20px_60px_rgb(10_29_25/0.22)] outline-none sm:max-w-[480px] sm:rounded-xl"
+        className="animate-pop-in relative flex max-h-[90vh] w-full flex-col rounded-t-xl border border-line-strong bg-elevated shadow-[0_24px_80px_rgb(0_0_0/0.6)] outline-none sm:max-w-[480px] sm:rounded-xl"
       >
         <header className="flex items-start justify-between gap-4 px-6 pt-5 pb-4">
           <div>
-            <h2 id={titleId} className="text-[16px] font-semibold tracking-tight">
+            <h2 id={titleId} className="text-[16px] font-semibold tracking-tight text-ink">
               {title}
             </h2>
             {description ? <p className="mt-1 text-[13px] text-muted">{description}</p> : null}
@@ -51,7 +51,7 @@ export function Modal({ open, onClose, title, description, footer, children, loc
             <button
               type="button"
               onClick={onClose}
-              className="-mr-2 rounded-md p-1.5 text-muted hover:bg-black/[0.05] hover:text-ink"
+              className="-mr-2 rounded-md p-1.5 text-muted transition-colors hover:bg-hover hover:text-ink"
               aria-label="Tutup"
             >
               <X className="size-4" />
@@ -60,7 +60,7 @@ export function Modal({ open, onClose, title, description, footer, children, loc
         </header>
         <div className="scrollbar-thin overflow-y-auto px-6 pb-5">{children}</div>
         {footer ? (
-          <footer className="flex items-center justify-end gap-2 rounded-b-xl border-t border-line bg-sunken px-6 py-3.5">
+          <footer className="flex items-center justify-end gap-2 rounded-b-xl border-t border-line bg-surface px-6 py-3.5">
             {footer}
           </footer>
         ) : null}

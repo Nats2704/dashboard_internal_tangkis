@@ -52,7 +52,7 @@ export function InventoryDetailDrawer({ record, onClose }: { record: InventoryRe
         <ol className="relative space-y-4 border-l border-line pl-5">
           {record.history.map((event) => (
             <li key={`${event.date}-${event.label}`} className="relative">
-              <span className="absolute top-1.5 -left-[23.5px] size-2 rounded-full border-2 border-surface bg-ink-2/60" aria-hidden />
+              <span className="absolute top-1.5 -left-[23.5px] size-2 rounded-full border-2 border-elevated bg-ink-2/60" aria-hidden />
               <p className="text-[13px] text-ink">{event.label}</p>
               <p className="text-[12px] text-muted">{formatDateTime(event.date)}</p>
             </li>

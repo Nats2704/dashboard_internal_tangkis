@@ -28,7 +28,7 @@ export function EconomicsView({ rows }: { rows: BuildingEconomicsRow[] }) {
   const changed = assumption !== COST_ASSUMPTION_PER_UNIT_YEAR;
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-4 lg:space-y-5">
       <Panel labelledBy="simulasi-title">
         <SectionHeader
           id="simulasi-title"
@@ -47,7 +47,7 @@ export function EconomicsView({ rows }: { rows: BuildingEconomicsRow[] }) {
             step={STEP}
             value={assumption}
             onChange={(e) => setAssumption(Number(e.target.value))}
-            className="w-full accent-[#0e6f66] md:max-w-sm"
+            className="w-full accent-accent md:max-w-sm"
             aria-valuetext={formatRupiahShort(assumption)}
           />
           <p className="shrink-0 text-[14px] font-semibold">

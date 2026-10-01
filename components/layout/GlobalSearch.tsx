@@ -100,7 +100,7 @@ export function GlobalSearch({ entries }: { entries: SearchEntry[] }) {
   const showPanel = open && normalized.length > 0;
 
   return (
-    <div ref={rootRef} className="relative w-full max-w-[440px]">
+    <div ref={rootRef} className="relative w-full max-w-[420px]">
       <label htmlFor={`${listId}-input`} className="sr-only">
         Cari unit, gedung, atau tiket
       </label>
@@ -124,14 +124,14 @@ export function GlobalSearch({ entries }: { entries: SearchEntry[] }) {
         aria-controls={listId}
         aria-autocomplete="list"
         aria-activedescendant={showPanel && results[activeIndex] ? `${listId}-${activeIndex}` : undefined}
-        className="h-9 w-full rounded-md border border-line bg-sunken pr-12 pl-9 text-[14px] text-ink placeholder:text-subtle hover:border-line-strong focus:border-accent focus:bg-surface focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+        className="h-9 w-full rounded-md border border-line bg-sunken/80 pr-12 pl-9 text-[13.5px] text-ink transition-colors placeholder:text-subtle hover:border-line-strong focus:border-accent-line focus:bg-surface focus:ring-2 focus:ring-accent-soft focus:outline-none [&::-webkit-search-cancel-button]:hidden"
       />
-      <kbd className="pointer-events-none absolute top-1/2 right-2.5 hidden -translate-y-1/2 rounded border border-line bg-surface px-1.5 font-sans text-[11px] text-subtle sm:block">
+      <kbd className="pointer-events-none absolute top-1/2 right-2.5 hidden -translate-y-1/2 rounded border border-line-strong bg-surface px-1.5 font-mono text-[11px] text-subtle sm:block">
         /
       </kbd>
 
       {showPanel ? (
-        <div className="animate-pop-in absolute top-full right-0 left-0 z-40 mt-2 overflow-hidden rounded-lg border border-line bg-surface shadow-[0_16px_40px_rgb(10_29_25/0.14)]">
+        <div className="animate-pop-in absolute top-full right-0 left-0 z-40 mt-2 overflow-hidden rounded-lg border border-line-strong bg-elevated shadow-[0_20px_48px_rgb(0_0_0/0.5)]">
           {results.length === 0 ? (
             <p className="px-4 py-6 text-center text-[13px] text-muted">
               Tidak ada unit, gedung, atau tiket yang cocok dengan “{query.trim()}”.
@@ -154,13 +154,15 @@ export function GlobalSearch({ entries }: { entries: SearchEntry[] }) {
                     }}
                     className={cn(
                       "mx-1.5 flex cursor-pointer items-start gap-3 rounded-md px-2.5 py-2",
-                      active && "bg-sunken"
+                      active && "bg-hover"
                     )}
                   >
                     <Icon className="mt-0.5 size-4 shrink-0 text-subtle" />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="text-[14px] font-medium text-ink">{entry.title}</span>
+                        <span className={cn("font-medium text-ink", entry.kind === "building" ? "text-[14px]" : "font-mono text-[13px]")}>
+                          {entry.title}
+                        </span>
                         <span className="text-[11px] text-subtle">{KIND_LABEL[entry.kind]}</span>
                       </div>
                       <p className="truncate text-[13px] text-muted">{entry.subtitle}</p>

@@ -46,7 +46,7 @@ export function EconomicsTable({
         <span className="inline-flex items-center gap-2">
           <span className="font-medium text-ink">{buildingById.get(r.buildingId)?.name}</span>
           {r.dataMonths < 12 ? (
-            <span className="rounded bg-black/[0.05] px-1.5 text-[11px] text-muted" title="Angka disetahunkan dari data kurang dari 12 bulan">
+            <span className="rounded bg-white/[0.06] px-1.5 text-[11px] text-muted" title="Angka disetahunkan dari data kurang dari 12 bulan">
               {r.dataMonths} bln
             </span>
           ) : null}

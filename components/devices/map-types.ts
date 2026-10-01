@@ -1,3 +1,4 @@
+import { CHART } from "@/lib/constants/chart";
 import type { ConnectivityStatus, Device } from "@/types/device";
 import type { Building } from "@/types/building";
 
@@ -14,9 +15,9 @@ export interface SiteMarker {
 }
 
 export const MARKER_COLOR: Record<ConnectivityStatus, string> = {
-  online: "#2e7550",
-  offline: "#c2463a",
-  maintenance: "#d08a12",
+  online: CHART.success,
+  offline: CHART.danger,
+  maintenance: CHART.warning,
 };
 
 export const REGIONS = {

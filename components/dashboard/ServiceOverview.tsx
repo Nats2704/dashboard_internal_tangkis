@@ -45,7 +45,8 @@ export function ServiceOverview() {
     <Panel id="tiket-servis" labelledBy="tiket-servis-title">
       <SectionHeader
         id="tiket-servis-title"
-        title="Tiket Servis dan Kunjungan Lapangan"
+        eyebrow="Maintenance"
+        title="Tiket servis dan kunjungan lapangan"
         description={SERVICE_PERIOD_LABEL}
         href="/service"
         linkLabel="Lihat semua tiket"

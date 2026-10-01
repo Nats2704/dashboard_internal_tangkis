@@ -4,14 +4,14 @@ import { PageContainer, PageHeader } from "@/components/layout/PageContainer";
 import { SensorsView } from "@/components/sensors/SensorsView";
 import { getSensors, getSensorTrend } from "@/lib/services/sensorService";
 
-export const metadata: Metadata = { title: "Sensor" };
+export const metadata: Metadata = { title: "Sensor BBM" };
 
 export default async function SensorsPage() {
   const [sensors, trend] = await Promise.all([getSensors(), getSensorTrend()]);
   return (
     <PageContainer>
       <PageHeader
-        title="Sensor"
+        title="Sensor BBM"
         description="Kesehatan sensor dan selisih pembacaan terhadap hasil lab terakhir."
       />
       <Suspense>

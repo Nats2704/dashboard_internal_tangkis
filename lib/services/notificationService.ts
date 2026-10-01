@@ -61,6 +61,7 @@ export async function getNotifications(): Promise<AppNotification[]> {
       description: `${buildingName.get(gm014.buildingId ?? "")} · terakhir ${formatRelative(gm014.lastSeen)}. Tiket dibuat, belum ada teknisi.`,
       href: "/devices?unit=GM-014",
       createdAt: minutesAgo(150),
+      deviceId: gm014.id,
     });
   }
 

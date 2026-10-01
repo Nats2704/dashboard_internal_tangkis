@@ -96,7 +96,7 @@ export function AssignTechnicianModal({
                   value={tech.id}
                   checked={checked}
                   onChange={() => setTechnicianId(tech.id)}
-                  className="size-4 accent-[#0e6f66]"
+                  className="size-4 accent-accent"
                 />
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-2 text-[14px] font-medium text-ink">

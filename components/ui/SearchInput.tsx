@@ -25,7 +25,7 @@ export function SearchInput({
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="h-8 w-full rounded-md border border-line bg-surface pr-8 pl-8 text-[13px] placeholder:text-subtle hover:border-line-strong focus:border-accent focus:outline-none [&::-webkit-search-cancel-button]:hidden"
+        className="h-8 w-full rounded-md border border-line bg-sunken pr-8 pl-8 text-[13px] text-ink transition-colors placeholder:text-subtle hover:border-line-strong focus:border-accent-line focus:ring-2 focus:ring-accent-soft focus:outline-none [&::-webkit-search-cancel-button]:hidden"
       />
       {value ? (
         <button
@@ -60,7 +60,7 @@ export function Select<V extends string>({
       value={value}
       onChange={(e) => onChange(e.target.value as V)}
       className={cn(
-        "h-8 rounded-md border border-line bg-surface pr-7 pl-2.5 text-[13px] text-ink-2 hover:border-line-strong focus:border-accent focus:outline-none",
+        "h-8 rounded-md border border-line bg-sunken pr-7 pl-2.5 text-[13px] text-ink-2 transition-colors hover:border-line-strong focus:border-accent-line focus:ring-2 focus:ring-accent-soft focus:outline-none",
         className
       )}
     >

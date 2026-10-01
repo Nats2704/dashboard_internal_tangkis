@@ -24,7 +24,7 @@ export function ContractTable({ contracts, onSelect, selectedId, pageSize }: Con
       key: "unit",
       header: "Unit",
       sortValue: (c) => c.deviceId,
-      cell: (c) => <span className="font-medium text-ink">{c.deviceId}</span>,
+      cell: (c) => <span className="font-mono text-[12.5px] font-medium text-ink">{c.deviceId}</span>,
     },
     {
       key: "customer",

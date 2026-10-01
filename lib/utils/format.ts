@@ -109,6 +109,20 @@ export function formatClock(ms: number): string {
   return formatTime(new Date(ms).toISOString());
 }
 
+/** 12.48.32 — jam operasional dengan detik. */
+export function formatClockSeconds(ms: number): string {
+  const d = new Date(ms + WIB_OFFSET_MS);
+  return [d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()]
+    .map((n) => String(n).padStart(2, "0"))
+    .join(".");
+}
+
+/** "26 Sep, 08.00" — tanggal pendek tanpa tahun untuk metadata ringkas. */
+export function formatShortDateTime(iso: string): string {
+  const d = toWib(iso);
+  return `${d.getUTCDate()} ${MONTHS[d.getUTCMonth()]}, ${formatTime(iso)}`;
+}
+
 export function hoursSince(iso: string, now = SNAPSHOT_MS): number {
   return (now - Date.parse(iso)) / HOUR_MS;
 }

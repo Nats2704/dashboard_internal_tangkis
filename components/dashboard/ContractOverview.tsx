@@ -28,7 +28,8 @@ export function ContractOverview({ contracts, sensors }: { contracts: Contract[]
     <Panel id="kontrak" labelledBy="kontrak-title">
       <SectionHeader
         id="kontrak-title"
-        title="Kontrak dan Kepemilikan"
+        eyebrow="Pelanggan"
+        title="Kontrak dan kepemilikan"
         description={`${summary.total} unit dengan kontrak aktif (terpasang atau sedang diperbaiki).`}
         href="/contracts"
         linkLabel="Lihat semua kontrak"
