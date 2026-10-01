@@ -2,6 +2,10 @@ import type { ReactNode } from "react";
 import type { Tone } from "@/lib/constants/status";
 import { TONE_COLOR } from "./Badge";
 
+// Math.sin/cos boleh beda di digit terakhir antara Node (SSR) dan browser,
+// yang bikin hydration mismatch. Bulatkan supaya atribut SVG-nya identik.
+const round = (n: number) => Math.round(n * 1000) / 1000;
+
 export interface RingSegment {
   key: string;
   label: string;
@@ -53,10 +57,10 @@ export function HealthRing({
           {ticks.map((i) => {
             const a = (i / ticks.length) * Math.PI * 2;
             const major = i % 10 === 0;
-            const x1 = size / 2 + Math.cos(a) * tickR;
-            const y1 = size / 2 + Math.sin(a) * tickR;
-            const x2 = size / 2 + Math.cos(a) * (tickR + (major ? 5 : 3));
-            const y2 = size / 2 + Math.sin(a) * (tickR + (major ? 5 : 3));
+            const x1 = round(size / 2 + Math.cos(a) * tickR);
+            const y1 = round(size / 2 + Math.sin(a) * tickR);
+            const x2 = round(size / 2 + Math.cos(a) * (tickR + (major ? 5 : 3)));
+            const y2 = round(size / 2 + Math.sin(a) * (tickR + (major ? 5 : 3)));
             return (
               <line
                 key={i}
@@ -70,7 +74,7 @@ export function HealthRing({
             );
           })}
         </g>
-        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="rgb(255 255 255 / 0.05)" strokeWidth={thickness} />
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="var(--color-fill)" strokeWidth={thickness} />
         <g className="health-ring-sweep" style={{ ["--ring-c" as string]: `${c}` }}>
           {arcs.map((a) => (
             <circle
